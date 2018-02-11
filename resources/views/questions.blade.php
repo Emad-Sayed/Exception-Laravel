@@ -53,6 +53,9 @@ header("Pragma: no-cache");
 
     </div>
 </div>
+    <div id="comments">
+
+    </div>
 <script src="js/questionsView.js"></script>
 @endsection
 

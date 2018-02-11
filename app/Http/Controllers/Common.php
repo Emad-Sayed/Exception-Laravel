@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Question;
+
 use App\Tag;
 use Illuminate\Filesystem\Cache;
 use Illuminate\Http\Request;
@@ -67,11 +68,27 @@ class Common extends Controller
     }
     public function details(request $request)
     {
-        $comments = Question::find($request->input("Question_ID"))->comments;
+        $Ques = Question::find($request->input("Question_ID"));
+        $arr[]=$Ques->id;
+        $arr2[]=$Ques->title;
+        $arr3[]=$Ques->body;
+        $arr4[]=$Ques->user->mail;
+        $arr5[]=$Ques->tag->tag;
+        $AllCollection[]=$arr;
+        $AllCollection[]=$arr2;
+        $AllCollection[]=$arr3;
+        $AllCollection[]=$arr4;
+        $AllCollection[]=$arr5;
+
+
+        $comments=$Ques->comments;
         foreach($comments as $comm)
         {
-            echo $comm->comment;
+            $arr6['comment']=$comm->comment;
+            $arr6['mail']=$comm->user->mail;
+            $AllCollection[]=$arr6;
         }
+        return $AllCollection;
     }
 }
 

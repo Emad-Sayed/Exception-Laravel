@@ -67,22 +67,13 @@ function GetPosts()
                 date_div.appendChild(mail);
 
 
-                var form=document.createElement("form");
-                form.setAttribute("method","GET");
-                form.setAttribute("action","details");
-                var input=document.createElement("input");
-                input.setAttribute("name","Question_ID");
-                input.setAttribute("value",obj[i].id);
-                input.setAttribute("type","hidden");
-
                 var button = document.createElement("button");
                 button.setAttribute("type","submit");
                 button.setAttribute("class","btn btn-success");
                 button.setAttribute("id",obj[i].id);
-                //button.setAttribute("onclick","MoreDetails(this);");
+                button.setAttribute("onclick","MoreDetails(this);");
                 button.innerHTML="More Details";
-                form.appendChild(input);
-                form.appendChild(button);
+
 
 
                 if(obj[0]=='2')
@@ -105,7 +96,7 @@ function GetPosts()
                 Div_Control.appendChild(title);
                 Div_Control.appendChild(body);
                 Div_Control.appendChild(date_div);
-                Div_Control.appendChild(form);
+                Div_Control.appendChild(button);
                 if(obj[0]=='2')
                 {
                     Div_Control.appendChild(button2);
@@ -127,9 +118,96 @@ function ClearDrawing()
         parent.removeChild(parent.lastChild);
     }
 }
+function ClearComments()
+{
+    var parent=document.getElementById("comments");
+    while (parent.hasChildNodes())
+    {
+        parent.removeChild(parent.lastChild);
+    }
+}
 function MoreDetails(elem)
 {
-    alert(elem.id);
+    ClearDrawing();
+    http.onreadystatechange = PT;
+
+    function PT()
+    {
+
+        var data = http.responseText;
+        var obj = JSON.parse(data);
+
+        if (http.readyState == 4 && http.status == 200)
+        {
+            var Div_Control=document.createElement("div");
+            Div_Control.setAttribute("id",""+obj[0]);
+            var title = document.createElement("h1");
+            title.innerHTML=obj[1];
+
+            var body = document.createElement("p");
+            body.innerHTML=obj[2];
+
+            var date_div=document.createElement("div");
+            var mail = document.createElement("span");
+            var tag=document.createElement("span");
+            mail.setAttribute("class","badge");
+            tag.setAttribute("class","badge");
+            mail.innerHTML=obj[3];
+            tag.innerHTML=obj[4];
+            date_div.appendChild(tag);
+            date_div.appendChild(mail);
+
+
+            var button = document.createElement("button");
+            button.setAttribute("type","submit");
+            button.setAttribute("class","btn btn-success");
+            button.setAttribute("id",obj[0]);
+            button.setAttribute("onclick","MoreDetails(this);");
+            button.innerHTML="More Details";
+
+
+            var hr = document.createElement("hr");
+
+            var container=document.getElementById("questionsContrainer");
+            Div_Control.appendChild(title);
+            Div_Control.appendChild(body);
+            Div_Control.appendChild(date_div);
+            Div_Control.appendChild(button);
+            Div_Control.appendChild(hr);
+            container.appendChild(Div_Control);
+            for (var i = 5; i <obj.length; i++)
+            {
+                DrawComment(obj[i].title,obj[i].comment);
+            }
+        }
+    }
+    http.open("GET", "details?Question_ID="+elem.id, true);
+    http.send(null);
+}
+function DrawComment(mail,comment)
+{
+    div1=document.createElement("div");
+    div1.setAttribute("class","container");
+    div2=document.createElement("div");
+    div2.setAttribute("class","row");
+    div3=document.createElement("div");
+    div3.setAttribute("class","col-sm-5");
+    div4=document.createElement("div");
+    div4.setAttribute("class","panel panel-default");
+    div5=document.createElement("div");
+    div5.setAttribute("class","panel-heading");
+    stro=document.createElement("strong");
+    stro.innerHTML=mail;
+    div5.appendChild(stro);
+    div6=document.createElement("panel-body");
+    div6.innerHTML=comment;
+    div4.appendChild(div5);
+    div4.appendChild(div6);
+    div3.appendChild(div4);
+    div2.appendChild(div3);
+    div1.appendChild(div2);
+    var all = document.getElementById("comments");
+    all.appendChild(div1);
 }
 function Delete(elem)
 {
@@ -155,11 +233,8 @@ function Delete(elem)
 
 function OnSelectedIndexChange(elem)
 {
-    var parent=document.getElementById("questionsContrainer");
-    while (parent.hasChildNodes())
-    {
-        parent.removeChild(parent.lastChild);
-    }
+    ClearDrawing();
+    ClearComments();
     for (var i = (MyData.length-1); i >=1; i--)
     {
         if(elem.value==MyData[i].tag)
@@ -183,22 +258,13 @@ function OnSelectedIndexChange(elem)
             date_div.appendChild(mail);
 
 
-            var form=document.createElement("form");
-            form.setAttribute("method","GET");
-            form.setAttribute("action","details");
-            var input=document.createElement("input");
-            input.setAttribute("name","Question_ID");
-            input.setAttribute("value",MyData[i].id);
-            input.setAttribute("type","hidden");
 
             var button = document.createElement("button");
             button.setAttribute("type","submit");
             button.setAttribute("class","btn btn-success");
             button.setAttribute("id",MyData[i].id);
-            //button.setAttribute("onclick","MoreDetails(this);");
+            button.setAttribute("onclick","MoreDetails(this);");
             button.innerHTML="More Details";
-            form.appendChild(input);
-            form.appendChild(button);
 
 
             if(MyData[0]=='2')
@@ -217,7 +283,7 @@ function OnSelectedIndexChange(elem)
             Div_Control.appendChild(title);
             Div_Control.appendChild(body);
             Div_Control.appendChild(date_div);
-            Div_Control.appendChild(form);
+            Div_Control.appendChild(button);
             if(MyData[0]=='2')
             {
                 Div_Control.appendChild(button2);
