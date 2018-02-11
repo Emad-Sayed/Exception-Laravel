@@ -48,68 +48,81 @@ function GetPosts()
         {
             for (var i = (obj.length-1); i >=1; i--)
             {
-                var Div_Control=document.createElement("div");
-                Div_Control.setAttribute("id",""+obj[i].id);
-                var title = document.createElement("h1");
-                title.innerHTML=obj[i].title;
-
-                var body = document.createElement("p");
-                body.innerHTML=obj[i].body;
-
-                var date_div=document.createElement("div");
-                var mail = document.createElement("span");
-                var tag=document.createElement("span");
-                mail.setAttribute("class","badge");
-                tag.setAttribute("class","badge");
-                mail.innerHTML=obj[i].mail;
-                tag.innerHTML=obj[i].tag;
-                date_div.appendChild(tag);
-                date_div.appendChild(mail);
-
-
-                var button = document.createElement("button");
-                button.setAttribute("type","submit");
-                button.setAttribute("class","btn btn-success");
-                button.setAttribute("id",obj[i].id);
-                button.setAttribute("onclick","MoreDetails(this);");
-                button.innerHTML="More Details";
-
-
-
-                if(obj[0]=='2')
-                {
-                    var button2 = document.createElement("button");
-                    button2.setAttribute("type","button");
-                    button2.setAttribute("class","btn btn-danger");
-                    button2.setAttribute("id",obj[i].id);
-                    button2.setAttribute("onclick","Delete(this);");
-                    button2.innerHTML="Delete";
-                }
-
-
-
-
-
-                var hr = document.createElement("hr");
-
-                var container=document.getElementById("questionsContrainer");
-                Div_Control.appendChild(title);
-                Div_Control.appendChild(body);
-                Div_Control.appendChild(date_div);
-                Div_Control.appendChild(button);
-                if(obj[0]=='2')
-                {
-                    Div_Control.appendChild(button2);
-                }
-                Div_Control.appendChild(hr);
-                container.appendChild(Div_Control);
+                DrawPost(obj[0],obj[i].id,obj[i].title,obj[i].mail,obj[i].tag,obj[i].body);
             }
         }
     }
     http.open("GET", "questions_loader", true);
     http.send(null);
 }
+function OnSelectedIndexChange(elem) {
+    ClearDrawing();
+    ClearComments();
+    for (var i = (MyData.length - 1); i >= 1; i--) {
+        if (elem.value == MyData[i].tag) {
+            DrawPost(MyData[0], MyData[i].id, MyData[i].title, MyData[i].mail, MyData[i].tag, MyData[i].body);
+        }
 
+    }
+}
+function DrawPost(check,id,title_,mail_,tag_,body_)
+{
+        var Div_Control=document.createElement("div");
+        Div_Control.setAttribute("id",id);
+        var title = document.createElement("h1");
+        title.innerHTML=title_;
+
+        var body = document.createElement("p");
+        body.innerHTML=body_;
+
+        var date_div=document.createElement("div");
+        var mail = document.createElement("span");
+        var tag=document.createElement("span");
+        mail.setAttribute("class","badge");
+        tag.setAttribute("class","badge");
+        mail.innerHTML=mail_;
+        tag.innerHTML=tag_;
+        date_div.appendChild(tag);
+        date_div.appendChild(mail);
+
+
+        var button = document.createElement("button");
+        button.setAttribute("type","submit");
+        button.setAttribute("class","btn btn-success");
+        button.setAttribute("id",id);
+        button.setAttribute("onclick","MoreDetails(this);");
+        button.innerHTML="More Details";
+
+
+
+        if(check=='2')
+        {
+            var button2 = document.createElement("button");
+            button2.setAttribute("type","button");
+            button2.setAttribute("class","btn btn-danger");
+            button2.setAttribute("id",id);
+            button2.setAttribute("onclick","Delete(this);");
+            button2.innerHTML="Delete";
+        }
+
+
+
+
+
+        var hr = document.createElement("hr");
+
+        var container=document.getElementById("questionsContrainer");
+        Div_Control.appendChild(title);
+        Div_Control.appendChild(body);
+        Div_Control.appendChild(date_div);
+        Div_Control.appendChild(button);
+        if(check=='2')
+        {
+            Div_Control.appendChild(button2);
+        }
+        Div_Control.appendChild(hr);
+        container.appendChild(Div_Control);
+}
 function ClearDrawing()
 {
     var parent=document.getElementById("questionsContrainer");
@@ -231,66 +244,4 @@ function Delete(elem)
 
 }
 
-function OnSelectedIndexChange(elem)
-{
-    ClearDrawing();
-    ClearComments();
-    for (var i = (MyData.length-1); i >=1; i--)
-    {
-        if(elem.value==MyData[i].tag)
-        {
-            var Div_Control=document.createElement("div");
-            Div_Control.setAttribute("id",""+MyData[i].id);
-            var title = document.createElement("h1");
-            title.innerHTML=MyData[i].title;
 
-            var body = document.createElement("p");
-            body.innerHTML=MyData[i].body;
-
-            var date_div=document.createElement("div");
-            var mail = document.createElement("span");
-            var tag=document.createElement("span");
-            mail.setAttribute("class","badge");
-            tag.setAttribute("class","badge");
-            mail.innerHTML=MyData[i].mail;
-            tag.innerHTML=MyData[i].tag;
-            date_div.appendChild(tag);
-            date_div.appendChild(mail);
-
-
-
-            var button = document.createElement("button");
-            button.setAttribute("type","submit");
-            button.setAttribute("class","btn btn-success");
-            button.setAttribute("id",MyData[i].id);
-            button.setAttribute("onclick","MoreDetails(this);");
-            button.innerHTML="More Details";
-
-
-            if(MyData[0]=='2')
-            {
-                var button2 = document.createElement("button");
-                button2.setAttribute("type","button");
-                button2.setAttribute("class","btn btn-danger");
-                button2.setAttribute("id",MyData[i].id);
-                button2.setAttribute("onclick","Delete(this);");
-                button2.innerHTML="Delete";
-            }
-
-            var hr = document.createElement("hr");
-
-            var container=document.getElementById("questionsContrainer");
-            Div_Control.appendChild(title);
-            Div_Control.appendChild(body);
-            Div_Control.appendChild(date_div);
-            Div_Control.appendChild(button);
-            if(MyData[0]=='2')
-            {
-                Div_Control.appendChild(button2);
-            }
-            Div_Control.appendChild(hr);
-            container.appendChild(Div_Control);
-        }
-
-    }
-}
