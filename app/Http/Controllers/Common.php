@@ -19,6 +19,10 @@ class Common extends Controller
     {
         return view('questions');
     }
+    public function IndexView()
+    {
+        return view('index');
+    }
     public function MyOption(request $request)
     {
         $temp=$request->session()->get('Type');
@@ -64,7 +68,7 @@ class Common extends Controller
     public function logOut(request $request)
     {
         $request->session()->flush();
-        return view('welcome');
+        return view('index');
     }
     public function details(request $request)
     {

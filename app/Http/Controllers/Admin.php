@@ -10,6 +10,7 @@ class Admin extends Controller
     function DeleteQuestion(request $request)
     {
         $qes=Question::find($request->input('id'));
+        $qes->comments()->delete();
         $qes->delete();
     }
 }

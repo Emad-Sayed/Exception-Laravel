@@ -12,7 +12,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Exception</a>
+            <a class="navbar-brand" href="/index">Exception</a>
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
@@ -43,10 +43,10 @@
 <!-- Include Font Awesome Stylesheet in Header -->
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 <!-- // -->
-<div class="container">
+<div class="container ">
 
     <div class="text-center center-block">
-        <p class="txt-railway">- Bootsnipp.com -</p>
+        <p class="txt-railway">- Exception.com -</p>
         <br />
         <a href="https://www.facebook.com/bootsnipp"><i class="fa fa-facebook-square fa-3x social"></i></a>
         <a href="https://twitter.com/bootsnipp"><i class="fa fa-twitter-square fa-3x social"></i></a>

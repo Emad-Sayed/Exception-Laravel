@@ -93,16 +93,24 @@ function DrawPost(check,id,title_,mail_,tag_,body_)
         button.setAttribute("onclick","MoreDetails(this);");
         button.innerHTML="More Details";
 
+        var button2 = document.createElement("button");
+        button2.setAttribute("type","submit");
+        button2.setAttribute("class","btn btn-danger");
+        button2.setAttribute("name","report");
+        button2.setAttribute("id",id);
+        button2.setAttribute("onclick","Report(this);");
+        button2.innerHTML="Report Question";
+
 
 
         if(check=='2')
         {
-            var button2 = document.createElement("button");
-            button2.setAttribute("type","button");
-            button2.setAttribute("class","btn btn-danger");
-            button2.setAttribute("id",id);
-            button2.setAttribute("onclick","Delete(this);");
-            button2.innerHTML="Delete";
+            var button3 = document.createElement("button");
+            button3.setAttribute("type","button");
+            button3.setAttribute("class","btn btn-danger");
+            button3.setAttribute("id",id);
+            button3.setAttribute("onclick","Delete(this);");
+            button3.innerHTML="Delete";
         }
 
 
@@ -116,10 +124,15 @@ function DrawPost(check,id,title_,mail_,tag_,body_)
         Div_Control.appendChild(body);
         Div_Control.appendChild(date_div);
         Div_Control.appendChild(button);
-        if(check=='2')
+
+    if(check=='2')
         {
-            Div_Control.appendChild(button2);
+            Div_Control.appendChild(button3);
         }
+        else
+    {
+        Div_Control.appendChild(button2);
+    }
         Div_Control.appendChild(hr);
         container.appendChild(Div_Control);
 }
@@ -173,10 +186,10 @@ function MoreDetails(elem)
 
             var button = document.createElement("button");
             button.setAttribute("type","submit");
-            button.setAttribute("class","btn btn-success");
+            button.setAttribute("class","btn btn-info");
             button.setAttribute("id",obj[0]);
-            button.setAttribute("onclick","MoreDetails(this);");
-            button.innerHTML="More Details";
+            button.setAttribute("onclick","MakeComment(this);");
+            button.innerHTML="Make Comment";
 
 
             var hr = document.createElement("hr");
@@ -190,7 +203,7 @@ function MoreDetails(elem)
             container.appendChild(Div_Control);
             for (var i = 5; i <obj.length; i++)
             {
-                DrawComment(obj[i].title,obj[i].comment);
+                DrawComment(obj[i].mail,obj[i].comment);
             }
         }
     }
@@ -242,6 +255,25 @@ function Delete(elem)
     }
 
 
+}
+function  MakeComment(elem)
+{
+    div=document.createElement("div");
+    div.setAttribute("class","form-group");
+    label=document.createElement("label");
+    label.setAttribute("for","comment");
+    label.innerHTML="Comment:";
+    textArea=document.createElement("textarea");
+    textArea.setAttribute("class","form-control");
+    textArea.setAttribute("row","3");
+    div.appendChild(label);
+    div.appendChild(textArea);
+    document.getElementById("questionsContrainer").appendChild(div);
+    elem.setAttribute("style","visibility :hidden");
+}
+function Report(elem)
+{
+    alert(elem.id);
 }
 
 
