@@ -8,7 +8,7 @@ header("Pragma: no-cache");
 
 @section('content')
 
-    <div  class="form-group" style="width: 250px;margin: auto">
+    <div id="option-div"  class="form-group" style="width: 250px;margin: auto">
         <label for="sel1">Select TAG</label>
         <select id="Options" onchange="OnSelectedIndexChange(this)" class="form-control" id="sel1">
             <option disabled selected value>  </option>

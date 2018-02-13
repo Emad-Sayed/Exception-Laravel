@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Comment;
 use App\Question;
 
 use App\Tag;
@@ -78,21 +79,38 @@ class Common extends Controller
         $arr3[]=$Ques->body;
         $arr4[]=$Ques->user->mail;
         $arr5[]=$Ques->tag->tag;
+        $arr6[]=$request->session()->get("Person")->mail;
         $AllCollection[]=$arr;
         $AllCollection[]=$arr2;
         $AllCollection[]=$arr3;
         $AllCollection[]=$arr4;
         $AllCollection[]=$arr5;
+        $AllCollection[]=$arr6;
 
 
         $comments=$Ques->comments;
         foreach($comments as $comm)
         {
-            $arr6['comment']=$comm->comment;
-            $arr6['mail']=$comm->user->mail;
-            $AllCollection[]=$arr6;
+            $arr7['comment']=$comm->comment;
+            $arr7['mail']=$comm->user->mail;
+            $AllCollection[]=$arr7;
         }
         return $AllCollection;
+    }
+    function AddComment(request $request)
+    {
+        $body=$request->input('comment');
+        $question_id=$request->input('question_id');
+        $user_id=$request->session()->get('Person')->id;
+        $comment=new Comment();
+        $comment->comment=$body;
+        $comment->question_id=$question_id;
+        $comment->user_id=$user_id;
+        $comment->save();
+    }
+    function test2(request $request)
+    {
+        echo $request->session()->get('Person');
     }
 }
 

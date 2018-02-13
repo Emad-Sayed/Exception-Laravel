@@ -7,6 +7,7 @@ window.onload = function ()
     GetTags();
 };
 var MyData ; //have all questions
+var MoreDetails;
 var http = new XMLHttpRequest();
 
 function GetTags() {
@@ -154,6 +155,7 @@ function ClearComments()
 }
 function MoreDetails(elem)
 {
+    document.getElementById("option-div").remove();
     ClearDrawing();
     http.onreadystatechange = PT;
 
@@ -165,6 +167,7 @@ function MoreDetails(elem)
 
         if (http.readyState == 4 && http.status == 200)
         {
+            MoreDetails=obj;
             var Div_Control=document.createElement("div");
             Div_Control.setAttribute("id",""+obj[0]);
             var title = document.createElement("h1");
@@ -201,19 +204,20 @@ function MoreDetails(elem)
             Div_Control.appendChild(button);
             Div_Control.appendChild(hr);
             container.appendChild(Div_Control);
-            for (var i = 5; i <obj.length; i++)
+            for (var i = obj.length-1; i >=6; i--)
             {
-                DrawComment(obj[i].mail,obj[i].comment);
+                DrawComment(obj[i].mail,obj[i].comment,0);
             }
         }
     }
     http.open("GET", "details?Question_ID="+elem.id, true);
     http.send(null);
 }
-function DrawComment(mail,comment)
+function DrawComment(mail,comment,flag)
 {
     div1=document.createElement("div");
-    div1.setAttribute("class","container");
+    div1.setAttribute("class","container ");
+
     div2=document.createElement("div");
     div2.setAttribute("class","row");
     div3=document.createElement("div");
@@ -233,7 +237,14 @@ function DrawComment(mail,comment)
     div2.appendChild(div3);
     div1.appendChild(div2);
     var all = document.getElementById("comments");
-    all.appendChild(div1);
+    if(flag==0)
+    {
+        all.appendChild(div1);
+    }
+    else
+    {
+        all.insertBefore(div1,all.firstChild);
+    }
 }
 function Delete(elem)
 {
@@ -253,23 +264,61 @@ function Delete(elem)
         http.open("GET", "DeleteQuestion?id="+elem.id, true);
         http.send(null);
     }
-
-
 }
 function  MakeComment(elem)
 {
     div=document.createElement("div");
     div.setAttribute("class","form-group");
+    div.setAttribute("id","comment-block");
     label=document.createElement("label");
+    label=document.createElement("comment-label");
     label.setAttribute("for","comment");
     label.innerHTML="Comment:";
     textArea=document.createElement("textarea");
     textArea.setAttribute("class","form-control");
     textArea.setAttribute("row","3");
+    textArea.setAttribute("id","comment-area");
     div.appendChild(label);
     div.appendChild(textArea);
+
+    var button = document.createElement("button");
+    button.setAttribute("type","submit");
+    button.setAttribute("class","btn btn-info");
+    button.setAttribute("id","comment-submit");
+    button.setAttribute("onclick","CreateComment();");
+
+    button.innerHTML="Comment";
     document.getElementById("questionsContrainer").appendChild(div);
+    document.getElementById("questionsContrainer").appendChild(button);
+
     elem.setAttribute("style","visibility :hidden");
+}
+function CreateComment()
+{
+    var comment=document.getElementById("comment-area").value;
+    if(comment.length>255)
+    {
+        alert("Comment Length Must be less than 5")
+    }
+    else
+    {
+        DrawComment(MoreDetails[5],comment,1);
+        var parent=document.getElementById("comment-block");
+        document.getElementById("comment-block").remove();
+        document.getElementById("comment-submit").remove();
+    }
+
+        http.onreadystatechange = PT;
+
+        function PT()
+        {
+            if (http.readyState == 4 && http.status == 200)
+            {
+            }
+        }
+        http.open("GET", "AddComment?comment="+comment+'&mail='+MoreDetails[5]+'&question_id='+MoreDetails[0], true);
+        http.send(null);
+
 }
 function Report(elem)
 {

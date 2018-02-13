@@ -17,6 +17,7 @@ class LoginManager extends Controller
         if(strlen($ArrayJSON)>2)
         {
             $user =new User();
+            $user->id=$ArrayJSON[0]['id'];
             $user->fname=$ArrayJSON[0]['fname'];
             $user->lname=$ArrayJSON[0]['lname'];
             $user->mail=$ArrayJSON[0]['mail'];

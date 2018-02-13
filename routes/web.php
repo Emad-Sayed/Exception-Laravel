@@ -34,11 +34,13 @@ Route::get('questions_loader', "Common@questions_loader")->middleware('Logged');
 Route::get('MyOption', "Common@MyOption")->middleware('Logged');
 Route::get('tags_loader', "Common@tags_loader")->middleware('Logged');
 Route::get('logOut', "Common@logOut");
-
-
 Route::get('details', "Common@details");
-
 Route::get('DeleteQuestion', "Admin@DeleteQuestion");
+Route::get('AddComment', "Common@AddComment");
+
+
+
+Route::get('test2', "Common@test2");
 
 Route::get('test', function () {
     $Question=\App\Question::all();
