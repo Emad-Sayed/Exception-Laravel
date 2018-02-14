@@ -15,7 +15,11 @@ Route::get('/', function () {
     return view('index');
 });
 
+
 Route::get('Login', "CheckLogin@Check");
+Route::post('Regist', "CheckLogin@Regist");
+
+
 
 Route::get('More', function () {
     return view('MoreDetails');

@@ -32,4 +32,5 @@ class LoginManager extends Controller
         }
 
     }
+
 }

@@ -96,51 +96,53 @@ header("Pragma: no-cache");
                     <div class="form-group">
                         <label for="email" class="col-md-3 control-label">Email</label>
                         <div class="col-md-9">
-                            <input type="text" class="form-control" name="email" placeholder="Email Address">
+                            <input type="text" class="form-control" id="email" placeholder="Email Address">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="firstname" class="col-md-3 control-label">First Name</label>
                         <div class="col-md-9">
-                            <input type="text" class="form-control" name="firstname" placeholder="First Name">
+                            <input type="text" class="form-control" id="Fname" placeholder="First Name">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="lastname" class="col-md-3 control-label">Last Name</label>
                         <div class="col-md-9">
-                            <input type="text" class="form-control" name="lastname" placeholder="Last Name">
+                            <input type="text" class="form-control" id="Lname" placeholder="Last Name">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="password" class="col-md-3 control-label">Password</label>
                         <div class="col-md-9">
-                            <input type="password" class="form-control" name="passwd" placeholder="Password">
+                            <input type="password" class="form-control" id="password" placeholder="Password">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="icode" class="col-md-3 control-label">Invitation Code</label>
+                        <label for="password" class="col-md-3 control-label">Confirm</label>
                         <div class="col-md-9">
-                            <input type="text" class="form-control" name="icode" placeholder="">
+                            <input type="password" class="form-control" id="confirm" placeholder="Confirm Password">
                         </div>
                     </div>
+
+                    <div class="form-group">
+                        <label for="icode" class="col-md-3 control-label">Secret Code</label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" id="secret" placeholder="For Security">
+                        </div>
+                    </div>
+
+                    <div id='alert2'></div>
+
 
                     <div class="form-group">
                         <!-- Button -->
                         <div class="col-md-offset-3 col-md-9">
-                            <button id="btn-signup" type="button" class="btn btn-info"><i class="icon-hand-right"></i> &nbsp Sign Up</button>
-                            <span style="margin-left:8px;">or</span>
+                            <button onclick="data_validation()" id="btn-signup" type="button" class="btn btn-info"><i class="icon-hand-right"></i> &nbsp Sign Up</button>
                         </div>
                     </div>
 
-                    <div style="border-top: 1px solid #999; padding-top:20px"  class="form-group">
-
-                        <div class="col-md-offset-3 col-md-9">
-                            <button id="btn-fbsignup" type="button" class="btn btn-primary"><i class="icon-facebook"></i>   Sign Up with Facebook</button>
-                        </div>
-
-                    </div>
 
 
 
@@ -157,7 +159,7 @@ header("Pragma: no-cache");
 
 <script type="text/javascript" src="js/config.js"></script>
 
-<script type="text/javascript" src="js/Login.js">
-</script>
+<script type="text/javascript" src="js/Login.js"></script>
+
 </body>
 </html>
