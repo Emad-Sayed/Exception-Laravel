@@ -53,10 +53,11 @@ class Common extends Controller
 
         return  json_encode($arr);
     }
-    public function tags_loader()
+    public function tags_loader(request $request)
     {
         $tags =Tag::all();
         $arr=array() ;
+        $arr[]=$request->session()->get("Person")->mail;
         foreach ($tags as $tag)
         {
             $arr1['id']=$tag->id;
@@ -111,6 +112,22 @@ class Common extends Controller
     function test2(request $request)
     {
         echo $request->session()->get('Person');
+    }
+    function AddQuestion(request $request)
+    {
+        $tag=$request->input('tag');
+        $title=$request->input('question_title');
+        $body=$request->input('question_body');
+        $user_id=$request->session()->get("Person")->id;
+        $ArrayJSON = Tag::select('*')->where('tag',$tag)->get();
+        $tag_id=$ArrayJSON[0]['id'];
+        $question=new Question();
+        $question->title=$title;
+        $question->body=$body;
+        $question->tag_id=$tag_id;
+        $question->user_id=$user_id;
+        $question->save();
+        return view('questions');
     }
 }
 

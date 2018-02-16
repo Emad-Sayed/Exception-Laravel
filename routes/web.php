@@ -24,6 +24,8 @@ Route::post('Regist', "CheckLogin@Regist");
 Route::get('More', function () {
     return view('MoreDetails');
 })->middleware('Logged');
+
+
 /*Route::get('test', function () {
     $user=\App\User::find(1);
     echo "user name:".$user->fname;
@@ -41,6 +43,7 @@ Route::get('logOut', "Common@logOut");
 Route::get('details', "Common@details");
 Route::get('DeleteQuestion', "Admin@DeleteQuestion");
 Route::get('AddComment', "Common@AddComment");
+Route::get('AddQuestion', "Common@AddQuestion");
 
 
 

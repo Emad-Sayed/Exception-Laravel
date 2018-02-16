@@ -1,3 +1,4 @@
+
 window.onload = function ()
 {
     document.getElementById("home").setAttribute("class","");
@@ -6,8 +7,10 @@ window.onload = function ()
     document.getElementById("Recommend").setAttribute("class","");
     GetTags();
 };
-var MyData ; //have all questions
-var MoreDetails;
+var MyData ;     //have all questions
+var Tags;        // have all Tags
+var MoreDetails; //Question Comments
+var Logged_Mail; // User Mail
 var http = new XMLHttpRequest();
 
 function GetTags() {
@@ -21,9 +24,11 @@ function GetTags() {
 
             if (http.readyState == 4 && http.status == 200)
             {
-                for (var i = 0; i <obj.length; i++)
+                Logged_Mail=obj[0];
+                Tags=obj;
+                var parent=document.getElementById("Options");
+                for (var i = 1; i <obj.length; i++)
                 {
-                    var parent=document.getElementById("Options");
                     var option=document.createElement("option");
                     option.innerHTML=obj[i].tag;
                     parent.appendChild(option);
@@ -62,6 +67,60 @@ function OnSelectedIndexChange(elem) {
     for (var i = (MyData.length - 1); i >= 1; i--) {
         if (elem.value == MyData[i].tag) {
             DrawPost(MyData[0], MyData[i].id, MyData[i].title, MyData[i].mail, MyData[i].tag, MyData[i].body);
+        }
+
+    }
+}
+function MyQuestions() {
+    ClearDrawing();
+    ClearComments();
+    for (var i = (MyData.length - 1); i >= 1; i--) {
+        if (Logged_Mail == MyData[i].mail) {
+            var Div_Control=document.createElement("div");
+            Div_Control.setAttribute("id",MyData[i].id);
+            var title = document.createElement("h1");
+            title.innerHTML=MyData[i].title;
+
+            var body = document.createElement("p");
+            body.innerHTML=MyData[i].body;
+
+            var date_div=document.createElement("div");
+            var mail = document.createElement("span");
+            var tag=document.createElement("span");
+            mail.setAttribute("class","badge");
+            tag.setAttribute("class","badge");
+            mail.innerHTML=MyData[i].mail;
+            tag.innerHTML=MyData[i].tag;
+            date_div.appendChild(tag);
+            date_div.appendChild(mail);
+
+
+            var button = document.createElement("button");
+            button.setAttribute("type","submit");
+            button.setAttribute("class","btn btn-success");
+            button.setAttribute("id",MyData[i].id);
+            button.setAttribute("onclick","MoreDetails(this);");
+            button.innerHTML="More Details";
+
+            var button2 = document.createElement("button");
+            button2.setAttribute("type","submit");
+            button2.setAttribute("class","btn btn-danger");
+            button2.setAttribute("name","Delete My Question");
+            button2.setAttribute("id",MyData[i].id);
+            button2.setAttribute("onclick","DeleteMyQuestion(this);");
+            button2.innerHTML="Delete";
+
+
+            var hr = document.createElement("hr");
+
+            var container=document.getElementById("questionsContrainer");
+            Div_Control.appendChild(title);
+            Div_Control.appendChild(body);
+            Div_Control.appendChild(date_div);
+            Div_Control.appendChild(button);
+            Div_Control.appendChild(button2);
+            Div_Control.appendChild(hr);
+            container.appendChild(Div_Control);
         }
 
     }
@@ -156,6 +215,7 @@ function ClearComments()
 function MoreDetails(elem)
 {
     document.getElementById("option-div").remove();
+    document.getElementById("buttons_option").setAttribute("style","display:none");
     ClearDrawing();
     http.onreadystatechange = PT;
 
@@ -246,6 +306,73 @@ function DrawComment(mail,comment,flag)
         all.insertBefore(div1,all.firstChild);
     }
 }
+function AddQuestion()
+{
+    document.getElementById("option-div").remove();
+    document.getElementById("buttons_option").setAttribute("style","display:none");
+    ClearDrawing();
+    var div=document.createElement("div");
+    div.setAttribute("class","container");
+    var form=document.createElement("form");
+    form.setAttribute("method","GET");
+    form.setAttribute("action","AddQuestion");
+
+    var div1=document.createElement("div");
+    div1.setAttribute("class","form-group");
+    var label1=document.createElement("label");
+    label1.innerHTML="Question Title";
+    var input1=document.createElement("input");
+    input1.setAttribute("class","form-control");
+    input1.setAttribute("name","question_title");
+    input1.setAttribute("placeholder","Question Title");
+    div1.appendChild(label1);
+    div1.appendChild(input1);
+
+    var div2=document.createElement("div");
+    div2.setAttribute("class","form-group");
+    var label2=document.createElement("label");
+    label2.innerHTML="SELECT TAG";
+    var select=document.createElement("select");
+    select.setAttribute("class","form-control");
+    select.setAttribute("name","tag");
+    for (var i = 1; i <Tags.length; i++)
+    {
+        var option=document.createElement("option");
+        option.innerHTML=Tags[i].tag;
+        select.appendChild(option);
+    }
+    div2.appendChild(label2);
+    div2.appendChild(select);
+
+    var div3=document.createElement("div");
+    div3.setAttribute("class","form-group");
+    var label3=document.createElement("label");
+    label3.innerHTML="Question Body";
+    var textArea=document.createElement("textarea");
+    textArea.setAttribute("class","form-control");
+    textArea.setAttribute("rows","5");
+    textArea.setAttribute("name","question_body");
+
+    div3.appendChild(label3);
+    div3.appendChild(textArea);
+
+
+    var button = document.createElement("button");
+    button.setAttribute("type","submit");
+    button.setAttribute("class","btn btn-success");
+    button.setAttribute("onclick","MoreDetails(this);");
+    button.innerHTML="Submit";
+
+
+    form.appendChild(div1);
+    form.appendChild(div2);
+    form.appendChild(div3);
+    form.appendChild(button);
+    div.appendChild(form);
+
+    document.getElementById("questionsContrainer").appendChild(div);
+}
+
 function Delete(elem)
 {
     var con=confirm("Are you sure you want to delete this question with it's comments?");
@@ -264,6 +391,10 @@ function Delete(elem)
         http.open("GET", "DeleteQuestion?id="+elem.id, true);
         http.send(null);
     }
+}
+function DeleteMyQuestion(elem)
+{
+    alert(elem.id);
 }
 function  MakeComment(elem)
 {

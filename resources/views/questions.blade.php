@@ -13,8 +13,12 @@ header("Pragma: no-cache");
         <select id="Options" onchange="OnSelectedIndexChange(this)" class="form-control" id="sel1">
             <option disabled selected value>  </option>
         </select>
-    </div>
 
+    </div>
+    <div id="buttons_option" style="margin: auto;width: 250px">
+        <button onclick="AddQuestion();" id="add_question" style="float: left" type="button" class="btn btn-success">Add Question</button>
+        <button onclick="MyQuestions();" id="my_questions" style="float: right" type="button" class="btn btn-success">My Questions</button>
+    </div>
 
 
 <div class="container">
