@@ -14,24 +14,16 @@
 Route::get('/', function () {
     return view('index');
 });
-
-
-Route::get('Login', "CheckLogin@Check");
-Route::post('Regist', "CheckLogin@Regist");
-
-
-
 Route::get('More', function () {
     return view('MoreDetails');
 })->middleware('Logged');
-
-
 /*Route::get('test', function () {
     $user=\App\User::find(1);
     echo "user name:".$user->fname;
     echo "Type :".$user->type->type;
 });*/
-
+Route::get('Login', "CheckLogin@Check");
+Route::post('Regist', "CheckLogin@Regist");
 Route::post('verify', "LoginManager@Login");
 Route::get('JobsView', "Common@JobsView")->middleware('Logged');
 Route::get('index', "Common@IndexView")->middleware('Logged');

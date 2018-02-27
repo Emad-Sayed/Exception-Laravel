@@ -4,8 +4,15 @@ window.onload = function ()
     document.getElementById("questions").setAttribute("class","");
     document.getElementById("MyOption").setAttribute("class","");
     document.getElementById("Recommend").setAttribute("class","");
-    DrawJobPost();
+    GetJobs();
 };
+function GetJobs() {
+    for(var i=0;i<10;i++)
+    {
+        DrawJobPost();
+    }
+}
+
 function DrawJobPost()
 {
     var Container=document.getElementById("div_container");
@@ -79,6 +86,8 @@ function DrawJobPost()
     Div_Group.setAttribute("id","list-group");
 
     Normal_DIV.appendChild(Div_Group);
+
+
     var a=document.createElement("a");
     a.setAttribute("class","list-group-item");
     a.setAttribute("href","#");
@@ -96,7 +105,44 @@ function DrawJobPost()
     span2.innerHTML="Email";
     a.appendChild(span2);
 
-    Div_Group.appendChild(a);
 
+
+    var a2=document.createElement("a");
+    a2.setAttribute("class","list-group-item");
+    a2.setAttribute("href","#");
+    var span=document.createElement("span");
+    span.setAttribute("class","fa-stack fa-lg");
+    a2.appendChild(span);
+    var i_1=document.createElement("i");
+    i_1.setAttribute("class","fa-stack-2x fa fa-circle");
+    var i_2=document.createElement("i");
+    i_2.setAttribute("class","fa-stack-1x text-primary fa fa-envelope");
+    span.appendChild(i_1);
+    span.appendChild(i_2);
+    var span2=document.createElement("span");
+    span2.setAttribute("class","");
+    span2.innerHTML="Email";
+    a2.appendChild(span2);
+
+    var a3=document.createElement("a");
+    a3.setAttribute("class","list-group-item");
+    a3.setAttribute("href","#");
+    var span=document.createElement("span");
+    span.setAttribute("class","fa-stack fa-lg");
+    a3.appendChild(span);
+    var i_1=document.createElement("i");
+    i_1.setAttribute("class","fa-stack-2x fa fa-circle");
+    var i_2=document.createElement("i");
+    i_2.setAttribute("class","fa-stack-1x text-primary fa fa-envelope");
+    span.appendChild(i_1);
+    span.appendChild(i_2);
+    var span2=document.createElement("span");
+    span2.setAttribute("class","");
+    span2.innerHTML="Email";
+    a3.appendChild(span2);
+
+    Div_Group.appendChild(a);
+    Div_Group.appendChild(a2);
+    Div_Group.appendChild(a3);
 
 }
