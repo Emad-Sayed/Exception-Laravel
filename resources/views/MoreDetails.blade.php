@@ -177,6 +177,39 @@ header("Pragma: no-cache");
 
 
 
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <!------ Include the above in your HEAD tag ---------->
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <h2 class="page-header">Comments</h2>
+                <section class="comment-list">
+                    <!-- First Comment -->
+                    <article class="row">
+                        <div class="col-md-10 col-sm-10">
+                            <div class="panel panel-default arrow left">
+                                <div class="panel-body">
+                                    <header class="text-left">
+                                        <div class="comment-user"><i class="fa fa-user"></i> That Guy</div>
+                                        <time class="comment-date" datetime="16-12-2014 01:05"><i class="fa fa-clock-o"></i> Dec 16, 2014</time>
+                                    </header>
+                                    <div class="comment-post">
+                                        <p>
+                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                                        </p>
+                                    </div>
+                                    <p class="text-right"><a href="#" class="btn btn-default btn-sm"><i class="fa fa-reply"></i> reply</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </section>
+            </div>
+        </div>
+    </div>
 
 
 

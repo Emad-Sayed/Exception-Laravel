@@ -388,13 +388,13 @@ function AddQuestion2()
     var title=document.getElementById("question_title").value;
     var body=document.getElementById("question_body").value;
     var tag=document.getElementById("tag").value;
-    if(title.length>30||title.length<20)
+    if(title.length>100||title.length<20)
     {
         var alert=document.getElementById("Alert");
         alert.setAttribute("class","alert alert-danger");
-        alert.innerHTML="Title must be more than 20 Char and less than 30";
+        alert.innerHTML="Title must be more than 20 Char and less than 100";
     }
-    else if(body.length>500||body.length<50)
+    else if(body.length>1000||body.length<50)
     {
         var alert=document.getElementById("Alert");
         alert.setAttribute("class","alert alert-danger");
@@ -471,9 +471,9 @@ function  MakeComment(elem)
 function CreateComment()
 {
     var comment=document.getElementById("comment-area").value;
-    if(comment.length>255)
+    if(comment.length>1000||comment.length==0)
     {
-        alert("Comment Length Must be less than 5")
+        alert("Comment Length Must be less than 100 and not empty")
     }
     else
     {
