@@ -12,9 +12,9 @@ use Illuminate\Http\Request;
 class Common extends Controller
 {
     //
-    public function HomeView()
+    public function JobsView()
     {
-        return view('home');
+        return view('jobs');
     }
     public function QuestionView()
     {

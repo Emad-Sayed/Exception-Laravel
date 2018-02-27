@@ -9,7 +9,7 @@ function LoginCheck()
         success:function(data){
             if(data=='True')
             {
-                window.location='home';
+                window.location='JobsView';
             }
             else
             {

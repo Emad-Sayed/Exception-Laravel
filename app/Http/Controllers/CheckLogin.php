@@ -10,7 +10,7 @@ class CheckLogin extends Controller
     {
         if($request->session()->has("Type"))
         {
-            return view("home");
+            return view("jobs");
         }
         return view("Login");
     }

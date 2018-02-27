@@ -1,7 +1,7 @@
 
 window.onload = function ()
 {
-    document.getElementById("home").setAttribute("class","");
+    document.getElementById("jobs").setAttribute("class","");
     document.getElementById("questions").setAttribute("class","active");
     document.getElementById("MyOption").setAttribute("class","");
     document.getElementById("Recommend").setAttribute("class","");
@@ -311,11 +311,16 @@ function AddQuestion()
     document.getElementById("option-div").remove();
     document.getElementById("buttons_option").setAttribute("style","display:none");
     ClearDrawing();
+    var Hint=document.createElement("h2");
+    Hint.innerHTML="Please make sure this question that you want to add is not asked before!";
+    Hint.setAttribute("style","color:red");
+    var Alert=document.createElement("div");
+    Alert.setAttribute("id","Alert");
     var div=document.createElement("div");
     div.setAttribute("class","container");
     var form=document.createElement("form");
-    form.setAttribute("method","GET");
-    form.setAttribute("action","AddQuestion");
+    //form.setAttribute("method","GET");
+    //form.setAttribute("action","AddQuestion");
 
     var div1=document.createElement("div");
     div1.setAttribute("class","form-group");
@@ -323,6 +328,7 @@ function AddQuestion()
     label1.innerHTML="Question Title";
     var input1=document.createElement("input");
     input1.setAttribute("class","form-control");
+    input1.setAttribute("id","question_title");
     input1.setAttribute("name","question_title");
     input1.setAttribute("placeholder","Question Title");
     div1.appendChild(label1);
@@ -335,6 +341,7 @@ function AddQuestion()
     var select=document.createElement("select");
     select.setAttribute("class","form-control");
     select.setAttribute("name","tag");
+    select.setAttribute("id","tag");
     for (var i = 1; i <Tags.length; i++)
     {
         var option=document.createElement("option");
@@ -351,6 +358,7 @@ function AddQuestion()
     var textArea=document.createElement("textarea");
     textArea.setAttribute("class","form-control");
     textArea.setAttribute("rows","5");
+    textArea.setAttribute("id","question_body");
     textArea.setAttribute("name","question_body");
 
     div3.appendChild(label3);
@@ -358,19 +366,55 @@ function AddQuestion()
 
 
     var button = document.createElement("button");
-    button.setAttribute("type","submit");
+    button.setAttribute("type","button");
     button.setAttribute("class","btn btn-success");
-    button.setAttribute("onclick","MoreDetails(this);");
+    button.setAttribute("onclick","AddQuestion2();");
     button.innerHTML="Submit";
 
 
     form.appendChild(div1);
     form.appendChild(div2);
     form.appendChild(div3);
+    form.appendChild(Alert);
     form.appendChild(button);
+
+    div.appendChild(Hint);
     div.appendChild(form);
 
     document.getElementById("questionsContrainer").appendChild(div);
+}
+function AddQuestion2()
+{
+    var title=document.getElementById("question_title").value;
+    var body=document.getElementById("question_body").value;
+    var tag=document.getElementById("tag").value;
+    if(title.length>30||title.length<20)
+    {
+        var alert=document.getElementById("Alert");
+        alert.setAttribute("class","alert alert-danger");
+        alert.innerHTML="Title must be more than 20 Char and less than 30";
+    }
+    else if(body.length>500||body.length<50)
+    {
+        var alert=document.getElementById("Alert");
+        alert.setAttribute("class","alert alert-danger");
+        alert.innerHTML="Body must be more than 50 Char and has all details";
+    }
+    else
+    {
+        http.onreadystatechange = PT;
+
+        function PT()
+        {
+            if (http.readyState == 4 && http.status == 200)
+            {
+                window.location="questions";
+            }
+        }
+        http.open("GET", "AddQuestion?question_title="+title+'&question_body='+body+'&tag='+tag, true);
+        http.send(null);
+
+    }
 }
 
 function Delete(elem)

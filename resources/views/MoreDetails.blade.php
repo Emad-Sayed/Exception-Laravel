@@ -81,4 +81,106 @@ header("Pragma: no-cache");
     </div>
 
 
+
+
+
+
+
+
+
+    <!------ Include the above in your HEAD tag ---------->
+
+    <div class="container">
+        <section id="wrapper">
+
+
+
+            <div class="row">
+                <div class="col-md-10">
+
+                    <div class="article">
+                        <h3>Pellentesque habitant morbi tristique</h3>
+
+                        <ul class="list-unstyled list-inline">
+                            <li><i class="fa fa-user"></i> Sergio Rodriguez</li>
+                        </ul>
+
+                        <div class="article-content">
+
+                            <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut non libero consectetur adipiscing elit magna. Sed et quam lacus. Fusce condimentum eleifend enim a feugiat. Pellentesque viverra vehicula sem ut volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut non libero magna. Sed et quam lacus. Fusce condimentum eleifend enim a feugiat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut non libero magna. Sed et quam lacus. Fusce condimentum eleifend enim a feugiat.</p>
+
+                            <blockquote class="hero">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit posuere erat a ante.</p>
+                                <small>Someone famous <cite title="Source Title">Source Title</cite></small>
+                            </blockquote>
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-2">
+
+                    <div>
+
+                        <h3>Contatcs</h3>
+
+                        <div class="list-group" id="list-group">
+
+                            <a href="#" class="list-group-item">
+		<span class="fa-stack fa-lg">
+		<i class="fa-stack-2x fa fa-circle "></i>
+		<i class="fa-stack-1x text-primary fa fa-envelope "></i>
+		</span>
+                                <span class="">Email</span>
+                            </a>
+                            <a href="#" class="list-group-item">
+		<span class="fa-stack fa-lg">
+		<i class="fa-stack-2x fa fa-circle "></i>
+		<i class="fa-stack-1x text-primary fa fa-envelope "></i>
+		</span>
+                                <span class="">Email</span>
+                            </a>
+                            <a href="#" class="list-group-item">
+		<span class="fa-stack fa-lg">
+		<i class="fa-stack-2x fa fa-circle "></i>
+		<i class="fa-stack-1x text-primary fa fa-envelope "></i>
+		</span>
+                                <span class="">Email</span>
+                            </a>
+                            <a href="#" class="list-group-item">
+		<span class="fa-stack fa-lg">
+		<i class="fa-stack-2x fa fa-circle "></i>
+		<i class="fa-stack-1x text-primary fa fa-envelope "></i>
+		</span>
+                                <span class="">Email</span>
+                            </a>
+                            <a href="#" class="list-group-item">
+		<span class="fa-stack fa-lg">
+		<i class="fa-stack-2x fa fa-circle "></i>
+		<i class="fa-stack-1x text-primary fa fa-envelope "></i>
+		</span>
+                                <span class="">Email</span>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+        </section>
+    </div>
+
+
+
+
+
+
+
+
+
 @endsection

@@ -33,7 +33,7 @@ Route::get('More', function () {
 });*/
 
 Route::post('verify', "LoginManager@Login");
-Route::get('home', "Common@HomeView")->middleware('Logged');
+Route::get('JobsView', "Common@JobsView")->middleware('Logged');
 Route::get('index', "Common@IndexView")->middleware('Logged');
 Route::get('questions', "Common@QuestionView")->middleware('Logged');
 Route::get('questions_loader', "Common@questions_loader")->middleware('Logged');
