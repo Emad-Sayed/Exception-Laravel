@@ -20,4 +20,8 @@ class Question extends Model
     {
         return $this->hasMany('App\Comment');
     }
+    public function report()
+    {
+        return $this->hasMany('App\Report');
+    }
 }

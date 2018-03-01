@@ -22,22 +22,24 @@ Route::get('More', function () {
     echo "user name:".$user->fname;
     echo "Type :".$user->type->type;
 });*/
+Route::get('index', "Common@IndexView");
 Route::get('Login', "CheckLogin@Check");
 Route::post('Regist', "CheckLogin@Regist");
 Route::post('verify', "LoginManager@Login");
 Route::get('JobsView', "Common@JobsView")->middleware('Logged');
-Route::get('index', "Common@IndexView")->middleware('Logged');
 Route::get('questions', "Common@QuestionView")->middleware('Logged');
 Route::get('questions_loader', "Common@questions_loader")->middleware('Logged');
 Route::get('jobs_loader', "Common@jobs_loader")->middleware('Logged');
 Route::get('MyOption', "Common@MyOption")->middleware('Logged');
 Route::get('tags_loader', "Common@tags_loader")->middleware('Logged');
-Route::get('logOut', "Common@logOut");
-Route::get('details', "Common@details");
-Route::get('DeleteQuestion', "Admin@DeleteQuestion");
-Route::get('AddComment', "Common@AddComment");
-Route::get('AddQuestion', "Common@AddQuestion");
-Route::get('AddJob', "Common@AddJob");
+Route::get('logOut', "Common@logOut")->middleware('Logged');
+Route::get('details', "Common@details")->middleware('Logged');
+Route::get('DeleteQuestion', "Admin@DeleteQuestion")->middleware('Logged');
+Route::get('AddComment', "Common@AddComment")->middleware('Logged');
+Route::get('AddQuestion', "Common@AddQuestion")->middleware('Logged');
+Route::get('AddJob', "Common@AddJob")->middleware('Logged');
+Route::get('ReportQuestion', "User@ReportQuestion")->middleware('Logged');
+Route::get('GetReported', "Admin@GetAllReportedQuestions")->middleware('Logged');
 
 
 

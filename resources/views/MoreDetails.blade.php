@@ -216,4 +216,42 @@ header("Pragma: no-cache");
 
 
 
+
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>UserName</th>
+            <th>Email</th>
+            <th>Question Title</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>John</td>
+            <td>Doe</td>
+            <td>john@example.com</td>
+            <td> <button type="button" class="btn btn-success">Details</button></td>
+
+        </tr>
+        <tr>
+            <td>Mary</td>
+            <td>Moe</td>
+            <td>mary@example.com</td>
+            <td> <button type="button" class="btn btn-success">Details</button></td>
+
+        </tr>
+        <tr>
+            <td>July</td>
+            <td>Dooley</td>
+            <td>july@example.com</td>
+            <td> <button type="button" class="btn btn-success">Details</button></td>
+
+        </tr>
+        </tbody>
+    </table>
+    </div>
+
+
 @endsection

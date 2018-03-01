@@ -21,6 +21,7 @@ function GetJobs() {
                 var name=obj[i].fname+" "+obj[i].lname;
                 DrawJobPost(obj[i].title,obj[i].body,obj[i].address,obj[i].email_1,obj[i].email_2,name);
             }
+            document.getElementById("Spinner").remove();
         }
     }
     http.open("GET", "jobs_loader", true);

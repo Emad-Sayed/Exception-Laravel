@@ -6,9 +6,10 @@ header("Pragma: no-cache");
 ?>
 @extends('layouts.bar')
 @section('content')
-    <?php
-    echo "Admin";
-    ?>
+    <div class="container" id="container"></div>
 
-
+    <div style="margin: auto;width: 30px" >
+        <i  id="Spinner" class="fa fa-spinner fa-spin" style="font-size:24px"></i>
+    </div>
+    <script src="js/AdminPage.js"></script>
 @endsection

@@ -23,13 +23,15 @@ header("Pragma: no-cache");
 
 
 <div class="container">
-    <div class="col-md-12" id="questionsContrainer">
-
-    </div>
+    <div class="col-md-12" id="questionsContrainer"></div>
 </div>
+    <div style="margin: auto;width: 21px" >
+        <i  id="Spinner" class="fa fa-spinner fa-spin" style="font-size:24px"></i>
+    </div>
 
     <div id="comments">
 
     </div>
 <script src="js/questionsView.js"></script>
+    <script src="js/questionsView.js"></script>
 @endsection

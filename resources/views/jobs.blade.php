@@ -11,7 +11,9 @@ header("Pragma: no-cache");
     <div style="margin: auto;width: 250px">
         <button onclick="AddJob()" id="JobAdding" type="button" class="btn btn-success">Job Advertising</button>
     </div>
-
+    <div style="margin: auto;width: 150px" >
+        <i  id="Spinner" class="fa fa-spinner fa-spin" style="font-size:24px"></i>
+    </div>
     <div id="div_container" class="container"></div>
 <script src="js/JobsView.js"></script>
 @endsection

@@ -59,6 +59,7 @@ function GetPosts()
             {
                 DrawPost(obj[0],obj[i].id,obj[i].title,obj[i].mail,obj[i].tag,obj[i].body);
             }
+            document.getElementById("Spinner").remove();
         }
     }
     http.open("GET", "questions_loader", true);
@@ -108,13 +109,13 @@ function MyQuestions() {
             button.setAttribute("onclick","MoreDetails(this);");
             button.innerHTML="More Details";
 
-            var button2 = document.createElement("button");
+   /*         var button2 = document.createElement("button");
             button2.setAttribute("type","submit");
             button2.setAttribute("class","btn btn-danger");
             button2.setAttribute("name","Delete My Question");
             button2.setAttribute("id",MyData[i].id);
             button2.setAttribute("onclick","DeleteMyQuestion(this);");
-            button2.innerHTML="Delete";
+            button2.innerHTML="Delete";*/
 
 
             var hr = document.createElement("hr");
@@ -124,7 +125,7 @@ function MyQuestions() {
             Div_Control.appendChild(body);
             Div_Control.appendChild(date_div);
             Div_Control.appendChild(button);
-            Div_Control.appendChild(button2);
+            //Div_Control.appendChild(button2);
             Div_Control.appendChild(hr);
             container.appendChild(Div_Control);
             Temp++;
@@ -446,10 +447,10 @@ function Delete(elem)
         http.send(null);
     }
 }
-function DeleteMyQuestion(elem)
+/*function DeleteMyQuestion(elem)
 {
     alert(elem.id);
-}
+}*/
 function  MakeComment(elem)
 {
     div=document.createElement("div");
@@ -507,7 +508,24 @@ function CreateComment()
 }
 function Report(elem)
 {
-    alert(elem.id);
+    http.onreadystatechange = PT;
+    function PT()
+    {
+        var data = http.responseText;
+        if (http.readyState == 4 && http.status == 200)
+        {
+            if(data=='false')
+            {
+                alert("You Are Already Reported this Question");
+            }
+            else
+            {
+                alert("Question Reported");
+            }
+        }
+    }
+    http.open("GET", "ReportQuestion?Question_ID="+elem.id, true);
+    http.send(null);
 }
 
 
