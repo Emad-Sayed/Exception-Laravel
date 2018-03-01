@@ -13,6 +13,7 @@ header("Pragma: no-cache");
         <select id="Options" onchange="OnSelectedIndexChange(this)" class="form-control" id="sel1">
             <option disabled selected value>  </option>
         </select>
+        <h3 id="Question_Number"></h3>
 
     </div>
     <div id="buttons_option" style="margin: auto;width: 250px">

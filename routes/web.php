@@ -29,6 +29,7 @@ Route::get('JobsView', "Common@JobsView")->middleware('Logged');
 Route::get('index', "Common@IndexView")->middleware('Logged');
 Route::get('questions', "Common@QuestionView")->middleware('Logged');
 Route::get('questions_loader', "Common@questions_loader")->middleware('Logged');
+Route::get('jobs_loader', "Common@jobs_loader")->middleware('Logged');
 Route::get('MyOption', "Common@MyOption")->middleware('Logged');
 Route::get('tags_loader', "Common@tags_loader")->middleware('Logged');
 Route::get('logOut', "Common@logOut");
@@ -36,6 +37,9 @@ Route::get('details', "Common@details");
 Route::get('DeleteQuestion', "Admin@DeleteQuestion");
 Route::get('AddComment', "Common@AddComment");
 Route::get('AddQuestion', "Common@AddQuestion");
+Route::get('AddJob', "Common@AddJob");
+
+
 
 
 

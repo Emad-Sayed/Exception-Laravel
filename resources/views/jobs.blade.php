@@ -9,7 +9,7 @@ header("Pragma: no-cache");
 @section('content')
     <!------ Include the above in your HEAD tag ---------->
     <div style="margin: auto;width: 250px">
-        <button type="button" class="btn btn-success">Job Advertising</button>
+        <button onclick="AddJob()" id="JobAdding" type="button" class="btn btn-success">Job Advertising</button>
     </div>
 
     <div id="div_container" class="container"></div>

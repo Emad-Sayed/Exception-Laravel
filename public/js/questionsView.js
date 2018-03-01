@@ -8,6 +8,7 @@ window.onload = function ()
     GetTags();
 };
 var MyData ;     //have all questions
+var Questions_Number;
 var Tags;        // have all Tags
 var MoreDetails; //Question Comments
 var Logged_Mail; // User Mail
@@ -50,6 +51,8 @@ function GetPosts()
         var data = http.responseText;
         var obj = JSON.parse(data);
         MyData=obj;
+        Questions_Number=MyData.length;
+        document.getElementById("Question_Number").innerHTML="Questions Number  : "+Questions_Number;
         if (http.readyState == 4 && http.status == 200)
         {
             for (var i = (obj.length-1); i >=1; i--)
@@ -64,16 +67,19 @@ function GetPosts()
 function OnSelectedIndexChange(elem) {
     ClearDrawing();
     ClearComments();
+    var Temp=0;
     for (var i = (MyData.length - 1); i >= 1; i--) {
         if (elem.value == MyData[i].tag) {
             DrawPost(MyData[0], MyData[i].id, MyData[i].title, MyData[i].mail, MyData[i].tag, MyData[i].body);
+            Temp++;
         }
-
+        document.getElementById("Question_Number").innerHTML="Questions Number : "+Temp;
     }
 }
 function MyQuestions() {
     ClearDrawing();
     ClearComments();
+    var Temp=0;
     for (var i = (MyData.length - 1); i >= 1; i--) {
         if (Logged_Mail == MyData[i].mail) {
             var Div_Control=document.createElement("div");
@@ -121,7 +127,9 @@ function MyQuestions() {
             Div_Control.appendChild(button2);
             Div_Control.appendChild(hr);
             container.appendChild(Div_Control);
+            Temp++;
         }
+        document.getElementById("Question_Number").innerHTML="Questions Number : "+Temp;
 
     }
 }
@@ -430,6 +438,8 @@ function Delete(elem)
             {
                 var container=document.getElementById("questionsContrainer");
                 container.removeChild(document.getElementById(""+elem.id));
+                Questions_Number=Questions_Number-1;
+                document.getElementById("Question_Number").innerHTML="Questions Number : "+Temp;
             }
         }
         http.open("GET", "DeleteQuestion?id="+elem.id, true);

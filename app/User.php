@@ -20,4 +20,8 @@ class User extends Model
     {
         return $this->hasMany('App\Comment');
     }
+    public function jobs()
+    {
+        return $this->hasMany('App\Job');
+    }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Comment;
+use App\Job;
 use App\Question;
 
 use App\Tag;
@@ -53,6 +54,26 @@ class Common extends Controller
 
         return  json_encode($arr);
     }
+    public function jobs_loader()
+    {
+        $Job =Job::all();
+        $arr[]= Array();
+        foreach ($Job as $J)
+        {
+            $arr1['id']=$J->id;
+            $arr1['title']=$J->title;
+            $arr1['body']=$J->body;
+            $arr1['address']=$J->address;
+            $arr1['email_1']=$J->contact_1;
+            $arr1['email_2']=$J->contact_2;
+            $arr1['fname']=$J->user->fname;
+            $arr1['lname']=$J->user->lname;
+            $arr[]=$arr1;
+        }
+
+        return  json_encode($arr);
+    }
+
     public function tags_loader(request $request)
     {
         $tags =Tag::all();
@@ -128,6 +149,23 @@ class Common extends Controller
         $question->user_id=$user_id;
         $question->save();
         return view('questions');
+    }
+    function AddJob(request $request)
+    {
+        $title=$request->input('title');
+        $email_1=$request->input('email_1');
+        $email_2=$request->input('email_2');
+        $user_id=$request->session()->get("Person")->id;
+        $address=$request->input('address');
+        $body=$request->input('body');
+        $Job=new Job();
+        $Job->title=$title;
+        $Job->contact_1=$email_1;
+        $Job->contact_2=$email_2;
+        $Job->address=$address;
+        $Job->body=$body;
+        $Job->user_id=$user_id;
+        $Job->save();
     }
 }
 
