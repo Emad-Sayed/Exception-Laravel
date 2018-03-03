@@ -11,7 +11,7 @@ class User extends Controller
     {
         $Question_ID=$request->input('Question_ID');
         $User_ID=$request->session()->get("Person")->id;
-        $ArrayJSON = Report::select('*')->where('user_id',$User_ID)->where('question_id',$Question_ID)->get();
+        $ArrayJSON = Report::select('*')->where('question_id',$Question_ID)->get();
         if(strlen($ArrayJSON)>2)
         {
             return 'false';

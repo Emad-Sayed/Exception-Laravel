@@ -40,7 +40,7 @@ Route::get('AddQuestion', "Common@AddQuestion")->middleware('Logged');
 Route::get('AddJob', "Common@AddJob")->middleware('Logged');
 Route::get('ReportQuestion', "User@ReportQuestion")->middleware('Logged');
 Route::get('GetReported', "Admin@GetAllReportedQuestions")->middleware('Logged');
-
+Route::get('GetUsers', "Manager@GetAllUsers")->middleware('Logged');
 
 
 

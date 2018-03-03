@@ -516,7 +516,7 @@ function Report(elem)
         {
             if(data=='false')
             {
-                alert("You Are Already Reported this Question");
+                alert("The Question Already Reported");
             }
             else
             {
