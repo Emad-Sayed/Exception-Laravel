@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Comment;
+use App\User;
 use App\Job;
 use App\Question;
-
+use Image;
 use App\Tag;
 use Illuminate\Filesystem\Cache;
 use Illuminate\Http\Request;
@@ -24,6 +25,10 @@ class Common extends Controller
     public function IndexView()
     {
         return view('index');
+    }
+    public function Setting()
+    {
+        return view('profile');
     }
     public function MyOption(request $request)
     {
@@ -79,6 +84,7 @@ class Common extends Controller
         $tags =Tag::all();
         $arr=array() ;
         $arr[]=$request->session()->get("Person")->mail;
+        $arr[]=$request->session()->get("Person")->img_name;
         foreach ($tags as $tag)
         {
             $arr1['id']=$tag->id;
@@ -115,6 +121,7 @@ class Common extends Controller
         {
             $arr7['comment']=$comm->comment;
             $arr7['mail']=$comm->user->mail;
+            $arr7['image']=$comm->user->img_name;
             $AllCollection[]=$arr7;
         }
         return $AllCollection;
@@ -166,6 +173,41 @@ class Common extends Controller
         $Job->body=$body;
         $Job->user_id=$user_id;
         $Job->save();
+    }
+    function ProfileData(request $request)
+    {
+        $arr[]=$request->session()->get("Person")->id;
+        $arr[]=$request->session()->get("Person")->fname;
+        $arr[]=$request->session()->get("Person")->lname;
+        $arr[]=$request->session()->get("Person")->img_name;
+        $arr[]=$request->session()->get("Person")->mail;
+        $type=$request->session()->get("Type");
+        if($type==1)
+            $arr[]="Manager";
+        else if($type==2)
+            $arr[]="Admin";
+        else
+            $arr[]="User";
+        return  json_encode($arr);
+    }
+    function ChangeProfilePicture(request $request)
+    {
+
+        if($request->has('avatar'))
+        {
+            $User_ID=$request->session()->get('Person')->id;
+            //File Work
+            $avatar=$request->file('avatar');
+            $fileName=$User_ID.'.'.$avatar->getClientOriginalExtension();
+            Image::make($avatar)->resize(300,300)->save(public_path('Avatars/'.$fileName));
+            $request->session()->get("Person")->img_name=$fileName;
+
+            //DB Work
+            $user=User::find($User_ID);
+            $user->img_name=$User_ID.'.'.$avatar->getClientOriginalExtension();
+            $user->save();
+        }
+        return view('profile');
     }
 }
 

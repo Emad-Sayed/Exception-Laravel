@@ -200,19 +200,31 @@ function DrawDetails(elem) {
             container.appendChild(Div_Control);
             for (var i = obj.length-1; i >=6; i--)
             {
-                DrawComment(obj[i].mail,obj[i].comment,0);
+                DrawComment(obj[i].mail,obj[i].comment,obj[i].image,0);
             }
         }
     }
     http.open("GET", "details?Question_ID="+elem.id, true);
     http.send(null);
 }
-function DrawComment(mail,comment,flag) {
+function DrawComment(mail,comment,image,flag) {
     div1 = document.createElement("div");
     div1.setAttribute("class", "container ");
 
     div2 = document.createElement("div");
     div2.setAttribute("class", "row");
+
+    Image_Div_1=document.createElement("div");
+    Image_Div_1.setAttribute("class","col-sm-1");
+    Image_Div_2=document.createElement("div");
+    Image_Div_2.setAttribute("class","thumbnail");
+    Image_Div_1.appendChild(Image_Div_2);
+    div2.appendChild(Image_Div_1);
+    im=document.createElement("img");
+    im.setAttribute("class","img-responsive user-photo");
+    im.setAttribute("src","Avatars/"+image);
+    Image_Div_2.appendChild(im);
+
     div3 = document.createElement("div");
     div3.setAttribute("class", "col-sm-5");
     div4 = document.createElement("div");

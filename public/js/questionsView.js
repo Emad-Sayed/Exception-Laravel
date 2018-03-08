@@ -12,6 +12,7 @@ var Questions_Number;
 var Tags;        // have all Tags
 var MoreDetails; //Question Comments
 var Logged_Mail; // User Mail
+var Logged_Image;
 var http = new XMLHttpRequest();
 
 function GetTags() {
@@ -26,9 +27,10 @@ function GetTags() {
             if (http.readyState == 4 && http.status == 200)
             {
                 Logged_Mail=obj[0];
+                Logged_Image=obj[1];
                 Tags=obj;
                 var parent=document.getElementById("Options");
-                for (var i = 1; i <obj.length; i++)
+                for (var i = 2; i <obj.length; i++)
                 {
                     var option=document.createElement("option");
                     option.innerHTML=obj[i].tag;
@@ -109,6 +111,13 @@ function MyQuestions() {
             button.setAttribute("onclick","MoreDetails(this);");
             button.innerHTML="More Details";
 
+            var button2 = document.createElement("button");
+            button2.setAttribute("type","submit");
+            button2.setAttribute("class","btn btn-info");
+            button2.setAttribute("id",MyData[i].id);
+            button2.setAttribute("onclick","AddImage(this);");
+            button2.innerHTML="Add Image";
+
    /*         var button2 = document.createElement("button");
             button2.setAttribute("type","submit");
             button2.setAttribute("class","btn btn-danger");
@@ -125,7 +134,7 @@ function MyQuestions() {
             Div_Control.appendChild(body);
             Div_Control.appendChild(date_div);
             Div_Control.appendChild(button);
-            //Div_Control.appendChild(button2);
+            Div_Control.appendChild(button2);
             Div_Control.appendChild(hr);
             container.appendChild(Div_Control);
             Temp++;
@@ -273,22 +282,35 @@ function MoreDetails(elem)
             Div_Control.appendChild(button);
             Div_Control.appendChild(hr);
             container.appendChild(Div_Control);
-            for (var i = obj.length-1; i >=6; i--)
+            for (var i = obj.length-1; i >=7; i--)
             {
-                DrawComment(obj[i].mail,obj[i].comment,0);
+                DrawComment(obj[i].mail,obj[i].comment,obj[i].image,0);
             }
         }
     }
     http.open("GET", "details?Question_ID="+elem.id, true);
     http.send(null);
 }
-function DrawComment(mail,comment,flag)
+function DrawComment(mail,comment,image,flag)
 {
     div1=document.createElement("div");
     div1.setAttribute("class","container ");
 
     div2=document.createElement("div");
     div2.setAttribute("class","row");
+
+    Image_Div_1=document.createElement("div");
+    Image_Div_1.setAttribute("class","col-sm-1");
+    Image_Div_2=document.createElement("div");
+    Image_Div_2.setAttribute("class","thumbnail");
+    Image_Div_1.appendChild(Image_Div_2);
+    div2.appendChild(Image_Div_1);
+    im=document.createElement("img");
+    im.setAttribute("class","img-responsive user-photo");
+    im.setAttribute("src","Avatars/"+image);
+    Image_Div_2.appendChild(im);
+
+
     div3=document.createElement("div");
     div3.setAttribute("class","col-sm-5");
     div4=document.createElement("div");
@@ -351,7 +373,7 @@ function AddQuestion()
     select.setAttribute("class","form-control");
     select.setAttribute("name","tag");
     select.setAttribute("id","tag");
-    for (var i = 1; i <Tags.length; i++)
+    for (var i = 2; i <Tags.length; i++)
     {
         var option=document.createElement("option");
         option.innerHTML=Tags[i].tag;
@@ -372,6 +394,8 @@ function AddQuestion()
 
     div3.appendChild(label3);
     div3.appendChild(textArea);
+
+
 
 
     var button = document.createElement("button");
@@ -488,7 +512,7 @@ function CreateComment()
     }
     else
     {
-        DrawComment(MoreDetails[5],comment,1);
+        DrawComment(MoreDetails[5],comment,Logged_Image,1);
         var parent=document.getElementById("comment-block");
         document.getElementById("comment-block").remove();
         document.getElementById("comment-submit").remove();
@@ -527,5 +551,6 @@ function Report(elem)
     http.open("GET", "ReportQuestion?Question_ID="+elem.id, true);
     http.send(null);
 }
+
 
 

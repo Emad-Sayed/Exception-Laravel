@@ -16,7 +16,6 @@ class Manager extends Controller
         {
             $arr1=Array();
             $arr1['id']=$U->id;
-            $arr1['user_id']=$U->user_id;
             $arr1['mail']=$U->mail;
             $arr1['type']=$U->type->type;
             $fname=$U->fname;

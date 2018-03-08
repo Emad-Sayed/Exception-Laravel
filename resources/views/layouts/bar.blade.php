@@ -23,7 +23,7 @@
                 <li id="Recommend"><a href="#">Recommend</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#"><span class="glyphicon glyphicon-user"></span> Settings</a></li>
+                <li><a href="/Setting"><span class="glyphicon glyphicon-user"></span> Settings</a></li>
                 <li><a href="/logOut"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
             </ul>
         </div>

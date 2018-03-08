@@ -27,6 +27,7 @@ Route::get('Login', "CheckLogin@Check");
 Route::post('Regist', "CheckLogin@Regist");
 Route::post('verify', "LoginManager@Login");
 Route::get('JobsView', "Common@JobsView")->middleware('Logged');
+Route::get('Setting', "Common@Setting")->middleware('Logged');
 Route::get('questions', "Common@QuestionView")->middleware('Logged');
 Route::get('questions_loader', "Common@questions_loader")->middleware('Logged');
 Route::get('jobs_loader', "Common@jobs_loader")->middleware('Logged');
@@ -41,6 +42,11 @@ Route::get('AddJob', "Common@AddJob")->middleware('Logged');
 Route::get('ReportQuestion', "User@ReportQuestion")->middleware('Logged');
 Route::get('GetReported', "Admin@GetAllReportedQuestions")->middleware('Logged');
 Route::get('GetUsers', "Manager@GetAllUsers")->middleware('Logged');
+Route::get('ProfileInfo', "Common@ProfileData")->middleware('Logged');
+Route::post('ChangeProfilePic', "Common@ChangeProfilePicture")->middleware('Logged');
+
+
+
 
 
 
