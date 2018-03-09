@@ -59,7 +59,7 @@ function GetPosts()
         {
             for (var i = (obj.length-1); i >=1; i--)
             {
-                DrawPost(obj[0],obj[i].id,obj[i].title,obj[i].mail,obj[i].tag,obj[i].body);
+                DrawPost(obj[0],obj[i].id,obj[i].title,obj[i].mail,obj[i].tag,obj[i].body,MyData[i].img);
             }
             document.getElementById("Spinner").remove();
         }
@@ -73,7 +73,7 @@ function OnSelectedIndexChange(elem) {
     var Temp=0;
     for (var i = (MyData.length - 1); i >= 1; i--) {
         if (elem.value == MyData[i].tag) {
-            DrawPost(MyData[0], MyData[i].id, MyData[i].title, MyData[i].mail, MyData[i].tag, MyData[i].body);
+            DrawPost(MyData[0], MyData[i].id, MyData[i].title, MyData[i].mail, MyData[i].tag, MyData[i].body,MyData[i].img);
             Temp++;
         }
         document.getElementById("Question_Number").innerHTML="Questions Number : "+Temp;
@@ -93,6 +93,8 @@ function MyQuestions() {
             var body = document.createElement("p");
             body.innerHTML=MyData[i].body;
 
+
+
             var date_div=document.createElement("div");
             var mail = document.createElement("span");
             var tag=document.createElement("span");
@@ -108,15 +110,10 @@ function MyQuestions() {
             button.setAttribute("type","submit");
             button.setAttribute("class","btn btn-success");
             button.setAttribute("id",MyData[i].id);
-            button.setAttribute("onclick","MoreDetails(this);");
+            button.setAttribute("onclick","MoreDetails(this,1);");
             button.innerHTML="More Details";
 
-            var button2 = document.createElement("button");
-            button2.setAttribute("type","submit");
-            button2.setAttribute("class","btn btn-info");
-            button2.setAttribute("id",MyData[i].id);
-            button2.setAttribute("onclick","AddImage(this);");
-            button2.innerHTML="Add Image";
+
 
    /*         var button2 = document.createElement("button");
             button2.setAttribute("type","submit");
@@ -132,9 +129,15 @@ function MyQuestions() {
             var container=document.getElementById("questionsContrainer");
             Div_Control.appendChild(title);
             Div_Control.appendChild(body);
+            if(MyData[i].img!="")
+            {
+                var Img=document.createElement("img");
+                Img.setAttribute("src","Questions_Image/"+MyData[i].img);
+                Img.setAttribute("class","img-rounded");
+                Div_Control.appendChild(Img);
+            }
             Div_Control.appendChild(date_div);
             Div_Control.appendChild(button);
-            Div_Control.appendChild(button2);
             Div_Control.appendChild(hr);
             container.appendChild(Div_Control);
             Temp++;
@@ -143,7 +146,7 @@ function MyQuestions() {
 
     }
 }
-function DrawPost(check,id,title_,mail_,tag_,body_)
+function DrawPost(check,id,title_,mail_,tag_,body_,question_Image)
 {
         var Div_Control=document.createElement("div");
         Div_Control.setAttribute("id",id);
@@ -153,7 +156,10 @@ function DrawPost(check,id,title_,mail_,tag_,body_)
         var body = document.createElement("p");
         body.innerHTML=body_;
 
-        var date_div=document.createElement("div");
+
+
+
+    var date_div=document.createElement("div");
         var mail = document.createElement("span");
         var tag=document.createElement("span");
         mail.setAttribute("class","badge");
@@ -168,7 +174,7 @@ function DrawPost(check,id,title_,mail_,tag_,body_)
         button.setAttribute("type","submit");
         button.setAttribute("class","btn btn-success");
         button.setAttribute("id",id);
-        button.setAttribute("onclick","MoreDetails(this);");
+        button.setAttribute("onclick","MoreDetails(this,0);");
         button.innerHTML="More Details";
 
         var button2 = document.createElement("button");
@@ -200,6 +206,13 @@ function DrawPost(check,id,title_,mail_,tag_,body_)
         var container=document.getElementById("questionsContrainer");
         Div_Control.appendChild(title);
         Div_Control.appendChild(body);
+    if(question_Image!="")
+    {
+        var Img=document.createElement("img");
+        Img.setAttribute("src","Questions_Image/"+question_Image);
+        Img.setAttribute("class","img-rounded");
+        Div_Control.appendChild(Img);
+    }
         Div_Control.appendChild(date_div);
         Div_Control.appendChild(button);
 
@@ -230,7 +243,7 @@ function ClearComments()
         parent.removeChild(parent.lastChild);
     }
 }
-function MoreDetails(elem)
+function MoreDetails(elem,flag)
 {
     document.getElementById("option-div").remove();
     document.getElementById("buttons_option").setAttribute("style","display:none");
@@ -278,7 +291,55 @@ function MoreDetails(elem)
             var container=document.getElementById("questionsContrainer");
             Div_Control.appendChild(title);
             Div_Control.appendChild(body);
+            if(obj[6]!="")
+            {
+                var Img=document.createElement("img");
+                Img.setAttribute("src","Questions_Image/"+obj[6]);
+                Img.setAttribute("class","img-rounded");
+                Div_Control.appendChild(Img);
+            }
             Div_Control.appendChild(date_div);
+            if(flag==1)
+            {
+                var form=document.createElement("form");
+                form.setAttribute("method","POST");
+                form.setAttribute("enctype","multipart/form-data");
+                form.setAttribute("name","MyForm");
+                form.setAttribute("action","AddQuestionImage");
+                form.setAttribute("onsubmit","return ValidateImageExist()");
+                var Input_File=document.createElement("input");
+                Input_File.setAttribute("type","file");
+                Input_File.setAttribute("name","question_image");
+
+                var br=document.createElement("br");
+                var Question_ID=document.createElement("input");
+                Question_ID.setAttribute("type","text");
+                Question_ID.style.visibility="hidden";
+                Question_ID.setAttribute("name","Question_ID");
+                Question_ID.setAttribute("value",elem.id);
+                br.appendChild(Question_ID);
+
+                var Token=document.createElement("input");
+                Token.setAttribute("type","hidden");
+                Token.setAttribute("name","_token");
+                var metas = document.getElementById('MetaID');
+
+                Token.setAttribute("value",metas.getAttribute("content"));
+
+                var Submit=document.createElement("input");
+                Submit.setAttribute("type","submit");
+                Submit.setAttribute("value","Add Image To Question");
+                Submit.setAttribute("class","btn btn-warning");
+
+
+
+
+                form.appendChild(Token);
+                form.appendChild(Input_File);
+                form.appendChild(br);
+                form.appendChild(Submit);
+                Div_Control.appendChild(form);
+            }
             Div_Control.appendChild(button);
             Div_Control.appendChild(hr);
             container.appendChild(Div_Control);
@@ -290,6 +351,16 @@ function MoreDetails(elem)
     }
     http.open("GET", "details?Question_ID="+elem.id, true);
     http.send(null);
+}
+function ValidateImageExist()
+{
+  var Img=document.forms["MyForm"]["question_image"].value;
+  if(Img=="")
+  {
+      alert("Please Select an Image");
+      return false;
+  }
+  return true;
 }
 function DrawComment(mail,comment,image,flag)
 {

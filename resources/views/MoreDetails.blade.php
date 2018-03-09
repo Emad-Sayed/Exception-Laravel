@@ -23,7 +23,13 @@ header("Pragma: no-cache");
                   <span class="badge">Posted 2012-08-02 20:47:04</span><div class="pull-right"><span class="label label-default">alice</span> <span class="label label-primary">story</span> <span class="label label-success">blog</span> <span class="label label-info">personal</span> <span class="label label-warning">Warning</span>
                       <span class="label label-danger">Danger</span></div>
               </div>
+            <form action="ChangeProfilePic" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="_token" value="{{csrf_token()}}">
+                <input class="btn" type="file"  name="avatar">
+                <input class="btn btn-warning" type="submit" value="Change Profile Pic">
+            </form>
               <button style="margin-top: 10px" type="button" class="btn btn-success">More Details</button>
+
               <hr>
 
 
@@ -252,6 +258,7 @@ header("Pragma: no-cache");
             <td>July</td>
             <td>Dooley</td>
             <td>july@example.com</td>
+
             <td> <button type="button" class="btn btn-success">Details</button></td>
 
         </tr>
@@ -338,4 +345,6 @@ header("Pragma: no-cache");
         .header-btn-edit a i{color:#fff;padding-right:8px;}
     </style>
 
+
+    <form method="POST" enctype="multipart/form-data" name="MyForm" action="AddQuestionImage" onsubmit="return ValidateImageExist()"><input type="hidden" name="_token" value="{{csrf_token()}}"><input type="file" name="question_image"><input type="submit" value="Add Image To Question" class="btn btn-warning"></form>
 @endsection

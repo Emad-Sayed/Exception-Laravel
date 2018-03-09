@@ -1,13 +1,13 @@
 <?php
-
 header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
 header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cache");
 ?>
+<meta id="MetaID" name="csrf-token" content="{{ csrf_token() }}">
+
 @extends('layouts.bar')
 
 @section('content')
-
     <div id="option-div"  class="form-group" style="width: 250px;margin: auto">
         <label for="sel1">Select TAG</label>
         <select id="Options" onchange="OnSelectedIndexChange(this)" class="form-control" id="sel1">

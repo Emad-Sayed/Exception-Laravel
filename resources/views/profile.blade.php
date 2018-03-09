@@ -42,7 +42,7 @@ header("Pragma: no-cache");
                             <button type="button" class="btn btn-success">Details</button>
 
                         </div>
-                        <form action="ChangeProfilePic" method="post" enctype="multipart/form-data">
+                        <form name="MyForm" onsubmit="return Validate()" action="ChangeProfilePic" method="post" enctype="multipart/form-data">
                             <input type="hidden" name="_token" value="{{csrf_token()}}">
                             <input class="btn" type="file"  name="avatar">
                             <input class="btn btn-warning" type="submit" value="Change Profile Pic">

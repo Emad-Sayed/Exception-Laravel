@@ -30,3 +30,13 @@ function LoadData()
     http.open("GET", "ProfileInfo", true);
     http.send(null);
 }
+function Validate()
+{
+    var Image=document.forms["MyForm"]["avatar"].value;
+    if(Image=="")
+    {
+        alert ("Please Select an Image");
+        return false;
+    }
+    return true;
+}

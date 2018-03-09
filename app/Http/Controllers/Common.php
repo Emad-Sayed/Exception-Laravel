@@ -52,6 +52,7 @@ class Common extends Controller
             $arr1['title']=$Quest->title;
             $arr1['body']=$Quest->body;
             $arr1['tag']=$Quest->tag->tag;
+            $arr1['img']=$Quest->question_img_name;
             $arr1['mail']=$Quest->user->mail;
 
             $arr[]=$arr1;
@@ -108,12 +109,14 @@ class Common extends Controller
         $arr4[]=$Ques->user->mail;
         $arr5[]=$Ques->tag->tag;
         $arr6[]=$request->session()->get("Person")->mail;
+        $arr7[]=$Ques->question_img_name;
         $AllCollection[]=$arr;
         $AllCollection[]=$arr2;
         $AllCollection[]=$arr3;
         $AllCollection[]=$arr4;
         $AllCollection[]=$arr5;
         $AllCollection[]=$arr6;
+        $AllCollection[]=$arr7;
 
 
         $comments=$Ques->comments;
@@ -208,6 +211,25 @@ class Common extends Controller
             $user->save();
         }
         return view('profile');
+    }
+    function AddQuestionImage(request $request)
+    {
+        $Question_ID=$request->input('Question_ID');
+
+        //File Work
+        $avatar=$request->file('question_image');
+        $fileName=$Question_ID.'.'.$avatar->getClientOriginalExtension();
+        Image::make($avatar)->resize(800,400)->save(public_path('Questions_Image/'.$fileName));
+
+        //DB Work
+        $question=Question::find($Question_ID);
+        $question->question_img_name=$Question_ID.'.'.$avatar->getClientOriginalExtension();
+        $question->save();
+
+        return view('questions');
+
+
+
     }
 }
 
