@@ -194,11 +194,18 @@ function DrawDetails(elem) {
             var container=document.getElementById("container");
             Div_Control.appendChild(title);
             Div_Control.appendChild(body);
+            if(obj[6]!="")
+            {
+                var Img=document.createElement("img");
+                Img.setAttribute("src","Questions_Image/"+obj[6]);
+                Img.setAttribute("class","img-rounded");
+                Div_Control.appendChild(Img);
+            }
             Div_Control.appendChild(date_div);
             Div_Control.appendChild(button);
             Div_Control.appendChild(hr);
             container.appendChild(Div_Control);
-            for (var i = obj.length-1; i >=6; i--)
+            for (var i = obj.length-1; i >=7; i--)
             {
                 DrawComment(obj[i].mail,obj[i].comment,obj[i].image,0);
             }

@@ -33,10 +33,13 @@ function LoadData()
 function Validate()
 {
     var Image=document.forms["MyForm"]["avatar"].value;
-    if(Image=="")
+    if(checkURL(Image))
     {
-        alert ("Please Select an Image");
-        return false;
+        return true;
     }
-    return true;
+    alert("Please Select an Image!!");
+    return false;
+}
+function checkURL(url) {
+    return(url.match(/\.(jpeg|jpg|gif|png)$/) != null);
 }

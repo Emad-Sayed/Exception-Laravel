@@ -43,6 +43,8 @@ Route::get('ReportQuestion', "User@ReportQuestion")->middleware('Logged');
 Route::get('GetReported', "Admin@GetAllReportedQuestions")->middleware('Logged');
 Route::get('GetUsers', "Manager@GetAllUsers")->middleware('Logged');
 Route::get('ProfileInfo', "Common@ProfileData")->middleware('Logged');
+Route::get('UserProfile', "Manager@UserProfile")->middleware('Logged');
+
 Route::post('ChangeProfilePic', "Common@ChangeProfilePicture")->middleware('Logged');
 Route::post('AddQuestionImage', "Common@AddQuestionImage")->middleware('Logged');
 

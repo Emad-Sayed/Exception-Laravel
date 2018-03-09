@@ -354,13 +354,16 @@ function MoreDetails(elem,flag)
 }
 function ValidateImageExist()
 {
-  var Img=document.forms["MyForm"]["question_image"].value;
-  if(Img=="")
-  {
-      alert("Please Select an Image");
-      return false;
-  }
-  return true;
+    var Image=document.forms["MyForm"]["question_image"].value;
+    if(checkURL(Image))
+    {
+        return true;
+    }
+    alert("Please Select an Image!!");
+    return false;
+}
+function checkURL(url) {
+    return(url.match(/\.(jpeg|jpg|gif|png|PNG|JPG)$/) != null);
 }
 function DrawComment(mail,comment,image,flag)
 {

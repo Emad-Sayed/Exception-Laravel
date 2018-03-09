@@ -89,7 +89,13 @@ function AddRow(User_ID,name,email,type,question_number)
     td4.innerHTML=type;
 
     var td5=document.createElement("td");
-    td5.innerHTML=question_number;
+    var show_Profile=document.createElement("button");
+    show_Profile.innerHTML="User Profile";
+    show_Profile.setAttribute("class","btn btn-success");
+    show_Profile.setAttribute("type","button");
+    show_Profile.setAttribute("onclick","User_Profile(this)");
+    show_Profile.setAttribute("id",User_ID);
+    td5.appendChild(show_Profile);
 
     var td6=document.createElement("td");
     var delete_button=document.createElement("button");
@@ -99,6 +105,8 @@ function AddRow(User_ID,name,email,type,question_number)
     delete_button.setAttribute("onclick","Delete_User(this)");
     delete_button.setAttribute("id",User_ID);
     td6.appendChild(delete_button);
+
+
 
     tr.appendChild(td1);
     tr.appendChild(td2);
@@ -131,3 +139,7 @@ function Delete_User(element)
 {
     document.getElementById("TD"+element.id).remove();
 }
+function User_Profile(element) {
+    window.location="UserProfile?User_ID="+element.id;
+}
+

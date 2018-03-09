@@ -21,10 +21,24 @@ class Manager extends Controller
             $fname=$U->fname;
             $lname=$U->lname;
             $arr1['name']=$fname." ".$lname;
-            $arr1['questions_number']=count($U->questions);
+            //$arr1['questions_number']=count($U->questions);
             $arr[]=$arr1;
         }
 
         return  json_encode($arr);
+    }
+    function UserProfile(request $request)
+    {
+        $arr = Array();
+        $user_ID=$request->input('User_ID');
+        $User=User::find($user_ID);
+        $arr['id']=$User->id;
+        $arr['fname']=$User->fname;
+        $arr['lname']=$User->lname;
+        $arr['img']=$User->img_name;
+        $arr['mail']=$User->mail;
+        $arr['type']=$User->type->type;
+
+        return  view('search_profile',$arr);
     }
 }
