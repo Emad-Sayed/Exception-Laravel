@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Comment;
+use App\Like;
 use App\User;
 use App\Job;
 use App\Question;
@@ -122,7 +123,9 @@ class Common extends Controller
         $comments=$Ques->comments;
         foreach($comments as $comm)
         {
+            $arr7['id']=$comm->id;
             $arr7['comment']=$comm->comment;
+            $arr7['likes']=$comm->comment_likes;
             $arr7['mail']=$comm->user->mail;
             $arr7['image']=$comm->user->img_name;
             $AllCollection[]=$arr7;
@@ -134,11 +137,19 @@ class Common extends Controller
         $body=$request->input('comment');
         $question_id=$request->input('question_id');
         $user_id=$request->session()->get('Person')->id;
-        $comment=new Comment();
-        $comment->comment=$body;
-        $comment->question_id=$question_id;
-        $comment->user_id=$user_id;
-        $comment->save();
+        $JS_MAIL=$request->input('JS_MAIL');
+        $mail=$request->session()->get('Person')->mail;
+        if($JS_MAIL==$mail)
+        {
+            $comment=new Comment();
+            $comment->comment=$body;
+            $comment->question_id=$question_id;
+            $comment->user_id=$user_id;
+            $comment->save();
+            return "true";
+        }
+        return "false";
+
     }
     function test2(request $request)
     {
@@ -202,7 +213,7 @@ class Common extends Controller
             //File Work
             $avatar=$request->file('avatar');
             $fileName=$User_ID.'.'.$avatar->getClientOriginalExtension();
-            Image::make($avatar)->resize(300,300)->save(public_path('Avatars/'.$fileName));
+            Image::make($avatar)->Resize(300,300)->save(public_path('Avatars/'.$fileName));
             $request->session()->get("Person")->img_name=$fileName;
 
             //DB Work
@@ -227,9 +238,41 @@ class Common extends Controller
         $question->save();
 
         return view('questions');
+    }
+    function MakeLike(request $request)
+    {
+        $Comment_ID=$request->input('Comment_ID');
+        $User_ID=$request->session()->get("Person")->id;
+        $Comment_Owner=$request->input('Comment_Mail');
+        $ArrayJSON = Like::select('*')->where('comment_id',$Comment_ID)->where('user_id',$User_ID)->get();
+        if(strlen($ArrayJSON)>2)
+        {
+            return 'false';
+        }
+        else
+        {
+            $ArrayJSON = User::select('*')->where('mail',$Comment_Owner)->get();
+            $Comment_Owner_ID=$ArrayJSON[0]['id'];
+            if($Comment_Owner_ID==$User_ID)
+            {
+                return 'false';
+            }
+            $User_OWner=User::find($Comment_Owner_ID);
+            $User_OWner->user_rate=$User_OWner->user_rate+1;
+            $User_OWner->save();
+
+            $Likes_Table= new Like();
+            $Likes_Table->user_id=$User_ID;
+            $Likes_Table->comment_id=$Comment_ID;
+            $Likes_Table->save();
+
+            $Comment=Comment::find($Comment_ID);
+            $Comment->comment_likes=$Comment->comment_likes+1;
+            $Comment->save();
 
 
-
+            return 'true';
+        }
     }
 }
 

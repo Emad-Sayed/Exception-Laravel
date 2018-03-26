@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddImageToQuestion extends Migration
+class CommentLikes extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddImageToQuestion extends Migration
      */
     public function up()
     {
-        Schema::table('questions', function($table) {
-            $table->string('question_img_name');
+        Schema::table('comments', function($table) {
+            $table->Integer('comment_likes')->default(0);;
         });
     }
 
@@ -25,8 +25,8 @@ class AddImageToQuestion extends Migration
      */
     public function down()
     {
-        Schema::table('questions', function($table) {
-            $table->dropColumn('question_img_name');
+        Schema::table('comments', function($table) {
+            $table->dropColumn('comment_likes')->default(0);;
         });
     }
 }

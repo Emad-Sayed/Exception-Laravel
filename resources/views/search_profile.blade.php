@@ -53,6 +53,8 @@ header("Pragma: no-cache");
                             <div class="info"><label><i class="fa fa-user"></i>Last Name :</label>  <span id="Lname">{{$lname}}</span></div>
                             <div class="info"><label><i class="fa fa-user"></i>Email :</label>  <span id="Email__">{{$mail}}</span></div>
                             <div class="info"><label><i class="fa fa-user"></i>Type :</label>  <span id="Type__">{{$type}}</span></div>
+                            <div class="info"><label><i class="fa fa-user"></i>Questions :</label>  <span id="Questions">{{$questions}}</span></div>
+                            <div class="info"><label><i class="fa fa-user"></i>Comments :</label>  <span id="Comments">{{$comments}}</span></div>
 
                         </div>
                     </div>

@@ -76,7 +76,7 @@ function Regist(Fname,Lname,email,password,secret_word)
     $.ajax({
         type:'POST',
         url:'/Regist?Fname='+Fname+'&Lname='+Lname+'&email='+email+'&password='+password+'&secret_word='+secret_word,
-        success:function(data){
+        success:function(){
             window.location='Login';
         }
     });

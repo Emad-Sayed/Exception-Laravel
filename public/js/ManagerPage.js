@@ -4,6 +4,7 @@ window.onload = function ()
     document.getElementById("questions").setAttribute("class","");
     document.getElementById("MyOption").setAttribute("class","active");
     document.getElementById("Recommend").setAttribute("class","");
+    var parent=document.getElementById("AddAdmin").style.visibility='hidden';
     AddHead();
     GetUsers();
 };
@@ -38,6 +39,7 @@ function AddHead()
     table.setAttribute("class","table table-striped");
     table.setAttribute("id","MyTable");
     var head=document.createElement("thead");
+    table.setAttribute("id","Head");
     var tr=document.createElement("tr");
 
     var th1=document.createElement("th");
@@ -126,6 +128,8 @@ function ClearRows()
 }
 function  Search(element) {
     ClearRows();
+    document.getElementById("Head").style.visibility = 'visible';
+    var parent=document.getElementById("AddAdmin").style.visibility='hidden';
     var re = new RegExp("\\b("+element.value+")(.)*\\b");
     for(var i=1;i<Users.length;i++)
     {
@@ -137,9 +141,71 @@ function  Search(element) {
 }
 function Delete_User(element)
 {
-    document.getElementById("TD"+element.id).remove();
+    var con=confirm("Sure you want to delete the user?");
+    if(con)
+    {
+        http.onreadystatechange = PT;
+
+        function PT()
+        {
+
+            if (http.readyState == 4 && http.status == 200)
+            {
+                document.getElementById("TD"+element.id).remove();
+            }
+        }
+        http.open("GET", "DeleteUser?user_id="+element.id, true);
+        http.send(null);
+    }
+
 }
 function User_Profile(element) {
     window.location="UserProfile?User_ID="+element.id;
 }
+function AddAdmin() {
+    ClearRows();
+    document.getElementById("Head").style.visibility = 'hidden';
+    var parent=document.getElementById("AddAdmin").style.visibility='visible';
 
+}
+function Validate() {
+    var Fname = document.getElementById("Fname").value;
+    var Lname = document.getElementById("Lname").value;
+    var email = document.getElementById("email").value;
+    var password = document.getElementById("password").value;
+    var confirm = document.getElementById("confirm").value;
+    if (validateName(Fname) == false) {
+        var alert_ = document.getElementById("alert2");
+        alert_.setAttribute("class", "alert alert-danger");
+        alert_.innerHTML = "Invalid First Name";
+        return false;
+    }
+    else if (validateName(Lname) == false) {
+        var alert_ = document.getElementById("alert2");
+        alert_.setAttribute("class", "alert alert-danger");
+        alert_.innerHTML = "Invalid Last Name";
+        return false;
+    }
+    else if (validateEmail(email) == false) {
+        var alert_ = document.getElementById("alert2");
+        alert_.setAttribute("class", "alert alert-danger");
+        alert_.innerHTML = "Invalid email";
+        return false;
+    }
+    else if (password != confirm || password.length < 6) {
+        var alert_ = document.getElementById("alert2");
+        alert_.setAttribute("class", "alert alert-danger");
+        alert_.innerHTML = "Password Not Matched Or Password less than 6 chars";
+        return false;
+    }
+    return true;
+}
+function validateName(name)
+{
+    return /^[a-zA-Z ]+$/.test(name);
+}
+function validateEmail(email)
+{
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+}

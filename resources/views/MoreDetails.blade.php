@@ -47,8 +47,8 @@ header("Pragma: no-cache");
                     </div><!-- /thumbnail -->
                 </div><!-- /col-sm-1 -->
 
-            <div class="col-sm-5">
-                <div class="panel panel-default">
+            <div >
+                <br class="panel panel-default">
                     <div class="panel-heading">
                         <strong>myusername</strong> <span class="text-muted">commented 5 days ago</span>
                     </div>
@@ -61,6 +61,9 @@ header("Pragma: no-cache");
                         If I do not, may lightning strike me! A pretty scholar, laughed the Lakeman. Adios, Senor! and leaping into the sea, he swam back to his comrades';
                         $arr[]='You ought to be ashamed of yourself for asking such a simple question,
                     </div><!-- /panel-body -->
+                    <br></br>
+                    <button class="btn btn-success"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>22
+                    </button>
                 </div><!-- /panel panel-default -->
             </div><!-- /col-sm-5 -->
         </div>

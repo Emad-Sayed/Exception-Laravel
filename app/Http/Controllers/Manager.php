@@ -38,7 +38,39 @@ class Manager extends Controller
         $arr['img']=$User->img_name;
         $arr['mail']=$User->mail;
         $arr['type']=$User->type->type;
+        $arr['questions']=count($User->questions);
+        $arr['comments']=count($User->comments);
+
 
         return  view('search_profile',$arr);
+    }
+    function  AddAdmin(request $request)
+    {
+        $this->validate($request,[
+            'Fname' => 'regex:/^[A-Z][a-z]{2,8}/',
+            'Lname' => 'regex:/^[A-Z][a-z]{2,8}/',
+            'email' => 'required|email',
+            'password' => 'required|min:6|max:20',
+
+        ]);
+        $user=new User();
+        $user->fname=$request->input('Fname');
+        $user->lname=$request->input('Lname');
+        $user->mail=$request->input('email');
+        $user->password=$request->input('password');
+        $user->secret_word="";
+        $user->type_id=2;
+        $user->img_name="";
+        $user->save();
+        return view('ManagerPages/ManagerPage');
+    }
+    function DeleteUser(request $request)
+    {
+        $user=User::find($request->input('user_id'));
+        $user->comments()->delete();
+        $user->questions()->delete();
+        $user->jobs()->delete();
+        $user->report()->delete();
+        $user->delete();
     }
 }

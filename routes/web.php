@@ -25,6 +25,7 @@ Route::get('More', function () {
 Route::get('index', "Common@IndexView");
 Route::get('Login', "CheckLogin@Check");
 Route::post('Regist', "CheckLogin@Regist");
+
 Route::post('verify', "LoginManager@Login");
 Route::get('JobsView', "Common@JobsView")->middleware('Logged');
 Route::get('Setting', "Common@Setting")->middleware('Logged');
@@ -42,11 +43,15 @@ Route::get('AddJob', "Common@AddJob")->middleware('Logged');
 Route::get('ReportQuestion', "User@ReportQuestion")->middleware('Logged');
 Route::get('GetReported', "Admin@GetAllReportedQuestions")->middleware('Logged');
 Route::get('GetUsers', "Manager@GetAllUsers")->middleware('Logged');
+Route::post('AddAdmin', "Manager@AddAdmin")->middleware('Logged');
+Route::get('DeleteUser', "Manager@Deleteuser")->middleware('Logged');
+
 Route::get('ProfileInfo', "Common@ProfileData")->middleware('Logged');
 Route::get('UserProfile', "Manager@UserProfile")->middleware('Logged');
 
 Route::post('ChangeProfilePic', "Common@ChangeProfilePicture")->middleware('Logged');
 Route::post('AddQuestionImage', "Common@AddQuestionImage")->middleware('Logged');
+Route::get('MakeLike', "Common@MakeLike")->middleware('Logged');
 
 
 

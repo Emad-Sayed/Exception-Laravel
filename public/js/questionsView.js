@@ -124,6 +124,7 @@ function MyQuestions() {
             button2.innerHTML="Delete";*/
 
 
+
             var hr = document.createElement("hr");
 
             var container=document.getElementById("questionsContrainer");
@@ -345,7 +346,7 @@ function MoreDetails(elem,flag)
             container.appendChild(Div_Control);
             for (var i = obj.length-1; i >=7; i--)
             {
-                DrawComment(obj[i].mail,obj[i].comment,obj[i].image,0);
+                DrawComment(obj[i].mail,obj[i].comment,obj[i].image,obj[i].id,obj[i].likes,0);
             }
         }
     }
@@ -365,39 +366,85 @@ function ValidateImageExist()
 function checkURL(url) {
     return(url.match(/\.(jpeg|jpg|gif|png|PNG|JPG)$/) != null);
 }
-function DrawComment(mail,comment,image,flag)
+function DrawComment(mail,comment,image,id,likes,flag)
 {
-    div1=document.createElement("div");
+    var div1=document.createElement("div");
     div1.setAttribute("class","container ");
 
-    div2=document.createElement("div");
+    var div2=document.createElement("div");
     div2.setAttribute("class","row");
 
-    Image_Div_1=document.createElement("div");
+    var Image_Div_1=document.createElement("div");
     Image_Div_1.setAttribute("class","col-sm-1");
-    Image_Div_2=document.createElement("div");
+    var Image_Div_2=document.createElement("div");
     Image_Div_2.setAttribute("class","thumbnail");
     Image_Div_1.appendChild(Image_Div_2);
     div2.appendChild(Image_Div_1);
-    im=document.createElement("img");
+    var im=document.createElement("img");
     im.setAttribute("class","img-responsive user-photo");
     im.setAttribute("src","Avatars/"+image);
     Image_Div_2.appendChild(im);
 
 
+    var button = document.createElement("button");
+    button.setAttribute("type","submit");
+    button.setAttribute("class","btn btn-success ");
+    button.setAttribute("id",id);
+    button.setAttribute("name",mail);
+    button.setAttribute("onclick","Like(this);");
+
+        var span=document.createElement("span");
+        span.setAttribute("class","glyphicon glyphicon-thumbs-up");
+        span.setAttribute("aria-hidden","true");
+        button.appendChild(span);
+        var Likes_span=document.createElement("span");
+        Likes_span=document.createElement("span");
+        Likes_span.innerHTML=likes;
+        Likes_span.setAttribute("id","Sp"+id);
+        button.appendChild(Likes_span);
+
+
+    var button2 = document.createElement("button");
+    button2.setAttribute("type","submit");
+    button2.setAttribute("class","btn btn-danger ");
+    button2.setAttribute("id",id);
+    button2.setAttribute("name",mail);
+    button2.setAttribute("onclick","DisLike(this);");
+
+    var span2=document.createElement("span");
+    span2.setAttribute("class","glyphicon glyphicon-thumbs-down");
+    span2.setAttribute("aria-hidden","true");
+    button2.appendChild(span2);
+    var Likes_span2=document.createElement("span");
+    Likes_span2=document.createElement("span");
+    Likes_span2.innerHTML=0;
+    Likes_span2.setAttribute("id","Sp"+id);
+    button2.appendChild(Likes_span2);
+
+
+
+
     div3=document.createElement("div");
-    div3.setAttribute("class","col-sm-5");
     div4=document.createElement("div");
     div4.setAttribute("class","panel panel-default");
     div5=document.createElement("div");
     div5.setAttribute("class","panel-heading");
     stro=document.createElement("strong");
     stro.innerHTML=mail;
+
+
+
     div5.appendChild(stro);
     div6=document.createElement("panel-body");
     div6.innerHTML=comment;
     div4.appendChild(div5);
     div4.appendChild(div6);
+
+    div4.appendChild(document.createElement("br"));
+    div4.appendChild(button);
+    div4.appendChild(button2);
+
+
     div3.appendChild(div4);
     div2.appendChild(div3);
     div1.appendChild(div2);
@@ -584,24 +631,31 @@ function CreateComment()
     {
         alert("Comment Length Must be less than 100 and not empty")
     }
-    else
+else
     {
-        DrawComment(MoreDetails[5],comment,Logged_Image,1);
-        var parent=document.getElementById("comment-block");
-        document.getElementById("comment-block").remove();
-        document.getElementById("comment-submit").remove();
-    }
 
         http.onreadystatechange = PT;
 
         function PT()
         {
+            var data = http.responseText;
             if (http.readyState == 4 && http.status == 200)
             {
+                if(data=='true')
+                {
+                    DrawComment(MoreDetails[5],comment,Logged_Image,-1,0,1);
+                    var parent=document.getElementById("comment-block");
+                    document.getElementById("comment-block").remove();
+                    document.getElementById("comment-submit").remove();
+                }
+
+
             }
         }
-        http.open("GET", "AddComment?comment="+comment+'&mail='+MoreDetails[5]+'&question_id='+MoreDetails[0], true);
+        http.open("GET", "AddComment?comment="+comment+'&mail='+MoreDetails[5]+'&question_id='+MoreDetails[0]+'&JS_MAIL='+Logged_Mail, true);
         http.send(null);
+    }
+
 
 }
 function Report(elem)
@@ -624,6 +678,38 @@ function Report(elem)
     }
     http.open("GET", "ReportQuestion?Question_ID="+elem.id, true);
     http.send(null);
+}
+function Like(element)
+{
+    if(element.name!=Logged_Mail)
+    {
+        http.onreadystatechange = PT;
+        function PT()
+        {
+            var data = http.responseText;
+            if (http.readyState == 4 && http.status == 200)
+            {
+                if(data=='false')
+                {
+                    alert("The Question Already Liked From You");
+                }
+                else
+                {
+                    var likes_Span=document.getElementById("Sp"+element.id);
+                    var likes=likes_Span.innerHTML;
+                    likes_Span.innerHTML=parseInt(likes) + parseInt(1);
+                }
+            }
+        }
+        http.open("GET", "MakeLike?Comment_ID="+element.id+"&Comment_Mail="+element.name, true);
+        http.send(null);
+
+    }
+}
+function DisLike(element)
+{
+    alert(element.id);
+    alert(element.name)
 }
 
 

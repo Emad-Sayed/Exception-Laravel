@@ -233,7 +233,6 @@ function DrawComment(mail,comment,image,flag) {
     Image_Div_2.appendChild(im);
 
     div3 = document.createElement("div");
-    div3.setAttribute("class", "col-sm-5");
     div4 = document.createElement("div");
     div4.setAttribute("class", "panel panel-default");
     div5 = document.createElement("div");

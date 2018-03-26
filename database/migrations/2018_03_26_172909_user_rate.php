@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddImageToQuestion extends Migration
+class UserRate extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddImageToQuestion extends Migration
      */
     public function up()
     {
-        Schema::table('questions', function($table) {
-            $table->string('question_img_name');
+        Schema::table('users', function($table) {
+            $table->Integer('user_rate')->default(0);;
         });
     }
 
@@ -25,8 +25,8 @@ class AddImageToQuestion extends Migration
      */
     public function down()
     {
-        Schema::table('questions', function($table) {
-            $table->dropColumn('question_img_name');
+        Schema::table('users', function($table) {
+            $table->dropColumn('user_rate');
         });
     }
 }
