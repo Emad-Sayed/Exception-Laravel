@@ -52,6 +52,7 @@ Route::get('UserProfile', "Manager@UserProfile")->middleware('Logged');
 Route::post('ChangeProfilePic', "Common@ChangeProfilePicture")->middleware('Logged');
 Route::post('AddQuestionImage', "Common@AddQuestionImage")->middleware('Logged');
 Route::get('MakeLike', "Common@MakeLike")->middleware('Logged');
+Route::get('MakeDislike', "Common@MakeDislike")->middleware('Logged');
 
 
 

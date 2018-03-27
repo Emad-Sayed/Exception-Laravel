@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Comment;
+use App\Dislike;
 use App\Like;
 use App\User;
 use App\Job;
@@ -126,6 +127,7 @@ class Common extends Controller
             $arr7['id']=$comm->id;
             $arr7['comment']=$comm->comment;
             $arr7['likes']=$comm->comment_likes;
+            $arr7['dislikes']=$comm->comment_dislikes;
             $arr7['mail']=$comm->user->mail;
             $arr7['image']=$comm->user->img_name;
             $AllCollection[]=$arr7;
@@ -241,38 +243,66 @@ class Common extends Controller
     }
     function MakeLike(request $request)
     {
-        $Comment_ID=$request->input('Comment_ID');
-        $User_ID=$request->session()->get("Person")->id;
-        $Comment_Owner=$request->input('Comment_Mail');
-        $ArrayJSON = Like::select('*')->where('comment_id',$Comment_ID)->where('user_id',$User_ID)->get();
-        if(strlen($ArrayJSON)>2)
-        {
+        $Comment_ID = $request->input('Comment_ID');
+        $User_ID = $request->session()->get("Person")->id;
+        $Comment_Owner = $request->input('Comment_Mail');
+        $ArrayJSON = Like::select('*')->where('comment_id', $Comment_ID)->where('user_id', $User_ID)->get();
+        if (strlen($ArrayJSON) > 2) {
             return 'false';
-        }
-        else
-        {
-            $ArrayJSON = User::select('*')->where('mail',$Comment_Owner)->get();
-            $Comment_Owner_ID=$ArrayJSON[0]['id'];
-            if($Comment_Owner_ID==$User_ID)
-            {
+        } else {
+            $ArrayJSON = User::select('*')->where('mail', $Comment_Owner)->get();
+            $Comment_Owner_ID = $ArrayJSON[0]['id'];
+            if ($Comment_Owner_ID == $User_ID) {
                 return 'false';
             }
-            $User_OWner=User::find($Comment_Owner_ID);
-            $User_OWner->user_rate=$User_OWner->user_rate+1;
+            $User_OWner = User::find($Comment_Owner_ID);
+            $User_OWner->user_rate = $User_OWner->user_rate + 1;
             $User_OWner->save();
 
-            $Likes_Table= new Like();
-            $Likes_Table->user_id=$User_ID;
-            $Likes_Table->comment_id=$Comment_ID;
+            $Likes_Table = new Like();
+            $Likes_Table->user_id = $User_ID;
+            $Likes_Table->comment_id = $Comment_ID;
             $Likes_Table->save();
 
-            $Comment=Comment::find($Comment_ID);
-            $Comment->comment_likes=$Comment->comment_likes+1;
+            $Comment = Comment::find($Comment_ID);
+            $Comment->comment_likes = $Comment->comment_likes + 1;
             $Comment->save();
 
 
             return 'true';
         }
     }
+        function MakeDislike(request $request)
+        {
+            $Comment_ID = $request->input('Comment_ID');
+            $User_ID = $request->session()->get("Person")->id;
+            $Comment_Owner = $request->input('Comment_Mail');
+            $ArrayJSON = Dislike::select('*')->where('comment_id', $Comment_ID)->where('user_id', $User_ID)->get();
+            if (strlen($ArrayJSON) > 2) {
+                return 'false';
+            } else {
+                $ArrayJSON = User::select('*')->where('mail', $Comment_Owner)->get();
+                $Comment_Owner_ID = $ArrayJSON[0]['id'];
+                if ($Comment_Owner_ID == $User_ID) {
+                    return 'false';
+                }
+                $User_OWner = User::find($Comment_Owner_ID);
+                $User_OWner->user_rate = $User_OWner->user_rate - 1;
+                $User_OWner->save();
+
+                $DisLikes_Table = new Dislike();
+                $DisLikes_Table->user_id = $User_ID;
+                $DisLikes_Table->comment_id = $Comment_ID;
+                $DisLikes_Table->save();
+
+                $Comment = Comment::find($Comment_ID);
+                $Comment->comment_dislikes = $Comment->comment_dislikes + 1;
+                $Comment->save();
+
+
+                return 'true';
+            }
+        }
+
 }
 

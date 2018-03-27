@@ -346,7 +346,7 @@ function MoreDetails(elem,flag)
             container.appendChild(Div_Control);
             for (var i = obj.length-1; i >=7; i--)
             {
-                DrawComment(obj[i].mail,obj[i].comment,obj[i].image,obj[i].id,obj[i].likes,0);
+                DrawComment(obj[i].mail,obj[i].comment,obj[i].image,obj[i].id,obj[i].likes,obj[i].dislikes,0);
             }
         }
     }
@@ -366,7 +366,7 @@ function ValidateImageExist()
 function checkURL(url) {
     return(url.match(/\.(jpeg|jpg|gif|png|PNG|JPG)$/) != null);
 }
-function DrawComment(mail,comment,image,id,likes,flag)
+function DrawComment(mail,comment,image,id,likes,dislike,flag)
 {
     var div1=document.createElement("div");
     div1.setAttribute("class","container ");
@@ -415,11 +415,11 @@ function DrawComment(mail,comment,image,id,likes,flag)
     span2.setAttribute("class","glyphicon glyphicon-thumbs-down");
     span2.setAttribute("aria-hidden","true");
     button2.appendChild(span2);
-    var Likes_span2=document.createElement("span");
-    Likes_span2=document.createElement("span");
-    Likes_span2.innerHTML=0;
-    Likes_span2.setAttribute("id","Sp"+id);
-    button2.appendChild(Likes_span2);
+    var Dislike_span=document.createElement("span");
+    Dislike_span=document.createElement("span");
+    Dislike_span.innerHTML=dislike;
+    Dislike_span.setAttribute("id","Sp2"+id);
+    button2.appendChild(Dislike_span);
 
 
 
@@ -643,7 +643,7 @@ else
             {
                 if(data=='true')
                 {
-                    DrawComment(MoreDetails[5],comment,Logged_Image,-1,0,1);
+                    DrawComment(MoreDetails[5],comment,Logged_Image,-1,0,0,1);
                     var parent=document.getElementById("comment-block");
                     document.getElementById("comment-block").remove();
                     document.getElementById("comment-submit").remove();
@@ -708,8 +708,30 @@ function Like(element)
 }
 function DisLike(element)
 {
-    alert(element.id);
-    alert(element.name)
+
+    if(element.name!=Logged_Mail)
+    {
+        http.onreadystatechange = PT;
+        function PT()
+        {
+            var data = http.responseText;
+            if (http.readyState == 4 && http.status == 200)
+            {
+                if(data=='false')
+                {
+                    alert("The Question Already Disliked From You");
+                }
+                else
+                {
+                    var dislike_span=document.getElementById("Sp2"+element.id);
+                    var dislikes=dislike_span.innerHTML;
+                    dislike_span.innerHTML=parseInt(dislikes) + parseInt(1);
+                }
+            }
+        }
+        http.open("GET", "MakeDislike?Comment_ID="+element.id+"&Comment_Mail="+element.name, true);
+        http.send(null);
+    }
 }
 
 
