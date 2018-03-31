@@ -49,9 +49,11 @@ header("Pragma: no-cache");
 
             <div >
                 <br class="panel panel-default">
-                    <div class="panel-heading">
-                        <strong>myusername</strong> <span class="text-muted">commented 5 days ago</span>
+                    <br class="panel-heading">
+                        <strong>myusername (23)
+                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span></strong>
                     </div>
+
                     <div class="panel-body">
                         'I am bound to Tahiti for more men.
                         Very good. Let me board you a moment—I come in peace. With that he leaped from the canoe, swam to the boat;
@@ -97,7 +99,9 @@ header("Pragma: no-cache");
 
 
 
-    
+
+
+
 
 
 

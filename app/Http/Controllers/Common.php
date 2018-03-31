@@ -130,6 +130,7 @@ class Common extends Controller
             $arr7['dislikes']=$comm->comment_dislikes;
             $arr7['mail']=$comm->user->mail;
             $arr7['image']=$comm->user->img_name;
+            $arr7['rate']=$comm->user->user_rate;
             $AllCollection[]=$arr7;
         }
         return $AllCollection;
@@ -170,6 +171,8 @@ class Common extends Controller
         $question->body=$body;
         $question->tag_id=$tag_id;
         $question->user_id=$user_id;
+        $question->question_img_name="";
+
         $question->save();
         return view('questions');
     }

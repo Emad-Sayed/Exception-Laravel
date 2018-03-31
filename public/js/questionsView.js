@@ -138,6 +138,7 @@ function MyQuestions() {
                 Div_Control.appendChild(Img);
             }
             Div_Control.appendChild(date_div);
+            Div_Control.appendChild(document.createElement("br"));
             Div_Control.appendChild(button);
             Div_Control.appendChild(hr);
             container.appendChild(Div_Control);
@@ -215,7 +216,8 @@ function DrawPost(check,id,title_,mail_,tag_,body_,question_Image)
         Div_Control.appendChild(Img);
     }
         Div_Control.appendChild(date_div);
-        Div_Control.appendChild(button);
+    Div_Control.appendChild(document.createElement("br"));
+    Div_Control.appendChild(button);
 
     if(check=='2')
         {
@@ -346,7 +348,7 @@ function MoreDetails(elem,flag)
             container.appendChild(Div_Control);
             for (var i = obj.length-1; i >=7; i--)
             {
-                DrawComment(obj[i].mail,obj[i].comment,obj[i].image,obj[i].id,obj[i].likes,obj[i].dislikes,0);
+                DrawComment(obj[i].mail,obj[i].comment,obj[i].image,obj[i].id,obj[i].likes,obj[i].dislikes,obj[i].rate,0);
             }
         }
     }
@@ -366,7 +368,7 @@ function ValidateImageExist()
 function checkURL(url) {
     return(url.match(/\.(jpeg|jpg|gif|png|PNG|JPG)$/) != null);
 }
-function DrawComment(mail,comment,image,id,likes,dislike,flag)
+function DrawComment(mail,comment,image,id,likes,dislike,stars,flag)
 {
     var div1=document.createElement("div");
     div1.setAttribute("class","container ");
@@ -430,8 +432,12 @@ function DrawComment(mail,comment,image,id,likes,dislike,flag)
     div5=document.createElement("div");
     div5.setAttribute("class","panel-heading");
     stro=document.createElement("strong");
-    stro.innerHTML=mail;
+    stro.innerHTML=mail+"  .. ("+stars+")";
 
+    var Stars=document.createElement("span");
+    Stars.setAttribute("class","glyphicon glyphicon-star");
+    Stars.setAttribute("arisa-hidden","true");
+    stro.appendChild(Stars);
 
 
     div5.appendChild(stro);
@@ -440,6 +446,7 @@ function DrawComment(mail,comment,image,id,likes,dislike,flag)
     div4.appendChild(div5);
     div4.appendChild(div6);
 
+    div4.appendChild(document.createElement("br"));
     div4.appendChild(document.createElement("br"));
     div4.appendChild(button);
     div4.appendChild(button2);
@@ -643,7 +650,7 @@ else
             {
                 if(data=='true')
                 {
-                    DrawComment(MoreDetails[5],comment,Logged_Image,-1,0,0,1);
+                    DrawComment(MoreDetails[5],comment,Logged_Image,-1,0,0,0,1);
                     var parent=document.getElementById("comment-block");
                     document.getElementById("comment-block").remove();
                     document.getElementById("comment-submit").remove();
