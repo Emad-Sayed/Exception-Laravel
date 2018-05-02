@@ -134,7 +134,6 @@ header("Pragma: no-cache");
                         </div>
                     </div>
 
-                    <div id='alert2'></div>
 
 
                     <div class="form-group">

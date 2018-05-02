@@ -298,7 +298,14 @@ function AddJob2() {
             var data = http.responseText;
             if (http.readyState == 4 && http.status == 200)
             {
+                if(data=='true')
                 window.location="JobsView";
+                else
+                {
+                    alert.setAttribute("class","alert alert-danger");
+                    alert.innerHTML="you can't post this job post because Stars less than 100 !";
+
+                }
             }
         }
         http.open("GET", "AddJob?title="+title+'&body='+body+'&address='+address+'&email_1='+email_1+'&email_2='+email_2, true);

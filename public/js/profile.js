@@ -24,6 +24,8 @@ function LoadData()
             document.getElementById("Image").setAttribute("src","Avatars/"+obj[3]);
             document.getElementById("Email__").innerHTML=obj[4];
             document.getElementById("Type__").innerHTML=obj[5];
+            document.getElementById("rate").innerHTML=obj[6];
+
             document.getElementById("PhotoWord").innerHTML=obj[1]+" "+obj[2];
         }
     }

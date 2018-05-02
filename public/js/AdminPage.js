@@ -130,7 +130,7 @@ function Delete(elem)
     var con=confirm("Are you sure you want to delete this question with it's comments?");
     if(con)
     {
-        document.getElementById("TD"+element.id).remove();
+        document.getElementById("TD"+elem.id).remove();
         http.onreadystatechange = PT;
 
         function PT()

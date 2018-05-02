@@ -58,6 +58,7 @@ header("Pragma: no-cache");
                             <div class="info"><label><i class="fa fa-user"></i>Last Name :</label>  <span id="Lname"></span></div>
                             <div class="info"><label><i class="fa fa-user"></i>Email :</label>  <span id="Email__"></span></div>
                             <div class="info"><label><i class="fa fa-user"></i>Type :</label>  <span id="Type__"></span></div>
+                            <div class="info"><label><i class="fa fa-user"></i>Stars :</label>  <span id="rate"></span></div>
 
                         </div>
                     </div>

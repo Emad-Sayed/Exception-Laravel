@@ -23,6 +23,7 @@ class LoginManager extends Controller
             $user->mail=$ArrayJSON[0]['mail'];
             $user->secret_word=$ArrayJSON[0]['secret_word'];
             $user->img_name=$ArrayJSON[0]['img_name'];
+            $user->user_rate=$ArrayJSON[0]['user_rate'];
             $request->session()->put("Person",$user);
             $request->session()->put("Type",$ArrayJSON[0]['type_id']);
             return  "True";

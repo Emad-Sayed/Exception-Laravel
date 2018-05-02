@@ -178,20 +178,26 @@ class Common extends Controller
     }
     function AddJob(request $request)
     {
-        $title=$request->input('title');
-        $email_1=$request->input('email_1');
-        $email_2=$request->input('email_2');
-        $user_id=$request->session()->get("Person")->id;
-        $address=$request->input('address');
-        $body=$request->input('body');
-        $Job=new Job();
-        $Job->title=$title;
-        $Job->contact_1=$email_1;
-        $Job->contact_2=$email_2;
-        $Job->address=$address;
-        $Job->body=$body;
-        $Job->user_id=$user_id;
-        $Job->save();
+        $rate_num=$request->session()->get("Person")->user_rate;
+        if($rate_num>=100)
+        {
+            $title=$request->input('title');
+            $email_1=$request->input('email_1');
+            $email_2=$request->input('email_2');
+            $user_id=$request->session()->get("Person")->id;
+            $address=$request->input('address');
+            $body=$request->input('body');
+            $Job=new Job();
+            $Job->title=$title;
+            $Job->contact_1=$email_1;
+            $Job->contact_2=$email_2;
+            $Job->address=$address;
+            $Job->body=$body;
+            $Job->user_id=$user_id;
+            $Job->save();
+            return "true";
+        }
+        return "false";
     }
     function ProfileData(request $request)
     {
@@ -200,6 +206,7 @@ class Common extends Controller
         $arr[]=$request->session()->get("Person")->lname;
         $arr[]=$request->session()->get("Person")->img_name;
         $arr[]=$request->session()->get("Person")->mail;
+
         $type=$request->session()->get("Type");
         if($type==1)
             $arr[]="Manager";
@@ -207,6 +214,8 @@ class Common extends Controller
             $arr[]="Admin";
         else
             $arr[]="User";
+        $arr[]=$request->session()->get("Person")->user_rate;
+
         return  json_encode($arr);
     }
     function ChangeProfilePicture(request $request)
