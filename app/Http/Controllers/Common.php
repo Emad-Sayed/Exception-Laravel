@@ -59,7 +59,6 @@ class Common extends Controller
 
             $arr[]=$arr1;
         }
-
         return  json_encode($arr);
     }
     public function jobs_loader()
@@ -286,6 +285,7 @@ class Common extends Controller
     }
         function MakeDislike(request $request)
         {
+            $aa= Array();
             $Comment_ID = $request->input('Comment_ID');
             $User_ID = $request->session()->get("Person")->id;
             $Comment_Owner = $request->input('Comment_Mail');

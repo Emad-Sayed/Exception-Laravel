@@ -27,32 +27,42 @@ Route::get('Login', "CheckLogin@Check");
 Route::post('Regist', "CheckLogin@Regist");
 
 Route::post('verify', "LoginManager@Login");
-Route::get('JobsView', "Common@JobsView")->middleware('Logged');
-Route::get('Setting', "Common@Setting")->middleware('Logged');
-Route::get('questions', "Common@QuestionView")->middleware('Logged');
-Route::get('questions_loader', "Common@questions_loader")->middleware('Logged');
-Route::get('jobs_loader', "Common@jobs_loader")->middleware('Logged');
-Route::get('MyOption', "Common@MyOption")->middleware('Logged');
-Route::get('tags_loader', "Common@tags_loader")->middleware('Logged');
-Route::get('logOut', "Common@logOut")->middleware('Logged');
-Route::get('details', "Common@details")->middleware('Logged');
-Route::get('DeleteQuestion', "Admin@DeleteQuestion")->middleware('Logged', 'Admin');
-Route::get('AddComment', "Common@AddComment")->middleware('Logged');
-Route::get('AddQuestion', "Common@AddQuestion")->middleware('Logged');
-Route::get('AddJob', "Common@AddJob")->middleware('Logged');
-Route::get('ReportQuestion', "User@ReportQuestion")->middleware('Logged');
-Route::get('GetReported', "Admin@GetAllReportedQuestions")->middleware('Logged', 'Admin');
-Route::get('GetUsers', "Manager@GetAllUsers")->middleware('Logged');
-Route::post('AddAdmin', "Manager@AddAdmin")->middleware('Logged');
-Route::get('DeleteUser', "Manager@Deleteuser")->middleware('Logged');
 
-Route::get('ProfileInfo', "Common@ProfileData")->middleware('Logged');
-Route::get('UserProfile', "Manager@UserProfile")->middleware('Logged');
+Route::group(['middleware' => 'Logged'], function(){
+    Route::get('JobsView', "Common@JobsView");
+    Route::get('Setting', "Common@Setting");
+    Route::get('questions', "Common@QuestionView");
+    Route::get('questions_loader', "Common@questions_loader");
+    Route::get('jobs_loader', "Common@jobs_loader");
+    Route::get('MyOption', "Common@MyOption");
+    Route::get('tags_loader', "Common@tags_loader");
+    Route::get('logOut', "Common@logOut");
+    Route::get('details', "Common@details");
+    Route::get('DeleteQuestion', "Admin@DeleteQuestion");
+    Route::get('AddComment', "Common@AddComment");
+    Route::get('AddQuestion', "Common@AddQuestion");
+    Route::get('AddJob', "Common@AddJob");
+    Route::get('ReportQuestion', "User@ReportQuestion");
+    Route::get('GetReported', "Admin@GetAllReportedQuestions");
+    Route::get('GetUsers', "Manager@GetAllUsers");
+    Route::post('AddAdmin', "Manager@AddAdmin");
+    Route::get('DeleteUser', "Manager@Deleteuser");
 
-Route::post('ChangeProfilePic', "Common@ChangeProfilePicture")->middleware('Logged');
-Route::post('AddQuestionImage', "Common@AddQuestionImage")->middleware('Logged');
-Route::get('MakeLike', "Common@MakeLike")->middleware('Logged');
-Route::get('MakeDislike', "Common@MakeDislike")->middleware('Logged');
+    Route::get('ProfileInfo', "Common@ProfileData");
+    Route::get('UserProfile', "Manager@UserProfile");
+
+    Route::post('ChangeProfilePic', "Common@ChangeProfilePicture");
+    Route::post('AddQuestionImage', "Common@AddQuestionImage");
+    Route::get('MakeLike', "Common@MakeLike");
+    Route::get('MakeDislike', "Common@MakeDislike");
+    });
+Route::group(['middleware' => 'Admin'], function() {
+    Route::get('DeleteQuestion', "Admin@DeleteQuestion");
+    Route::get('GetReported', "Admin@GetAllReportedQuestions");
+
+});
+
+
 
 
 
@@ -64,7 +74,10 @@ Route::get('test2', "Common@test2");
 
 Route::get('test', function () {
     $Question=\App\Question::all();
-    foreach ($Question as $Quest)
+    //dd($Question);
+    dd (json_encode($Question));
+    //dd (json_encode($Question));
+    /*foreach ($Question as $Quest)
     {
         echo $Quest->title;
         echo "<br></br>";
@@ -74,5 +87,7 @@ Route::get('test', function () {
         echo "<br></br>";
         echo $Quest->tag->tag;
 
-    }});
+    }*/
+}
+    );
 

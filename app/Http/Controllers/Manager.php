@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Question;
 use Illuminate\Http\Request;
 use App\User;
+use Illuminate\Support\Facades\Schema;
 
 class Manager extends Controller
 {
@@ -51,7 +52,6 @@ class Manager extends Controller
             'Lname' => 'regex:/^[A-Z][a-z]{2,8}/',
             'email' => 'required|email',
             'password' => 'required|min:6|max:20',
-
         ]);
         $user=new User();
         $user->fname=$request->input('Fname');
