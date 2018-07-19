@@ -13,19 +13,19 @@ class LoginManager extends Controller
     {
         $mail= $request->input("mail");
         $password=$request->input("pass");
-        $ArrayJSON = User::select('*')->where('mail',$mail)->where('password',$password)->get();
-        if(strlen($ArrayJSON)>2)
+        $userData = User::select('*')->where('mail',$mail)->where('password',$password)->get();
+        if(count($userData))
         {
             $user =new User();
-            $user->id=$ArrayJSON[0]['id'];
-            $user->fname=$ArrayJSON[0]['fname'];
-            $user->lname=$ArrayJSON[0]['lname'];
-            $user->mail=$ArrayJSON[0]['mail'];
-            $user->secret_word=$ArrayJSON[0]['secret_word'];
-            $user->img_name=$ArrayJSON[0]['img_name'];
-            $user->user_rate=$ArrayJSON[0]['user_rate'];
+            $user->id=$userData[0]['id'];
+            $user->fname=$userData[0]['fname'];
+            $user->lname=$userData[0]['lname'];
+            $user->mail=$userData[0]['mail'];
+            $user->secret_word=$userData[0]['secret_word'];
+            $user->img_name=$userData[0]['img_name'];
+            $user->user_rate=$userData[0]['user_rate'];
             $request->session()->put("Person",$user);
-            $request->session()->put("Type",$ArrayJSON[0]['type_id']);
+            $request->session()->put("Type",$userData[0]['type_id']);
             return  "True";
         }
         else
